@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hướng dẫn sử dụng Sigma</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #091921, #0f2e3c);
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+            user-select: none;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 40px auto;
+            padding: 30px;
+            background: rgba(28, 46, 64, 0.9);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            animation: slideFade 0.6s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-left: 240px;
+        }
+
+            .container:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+            }
+
+        h1, h2, h3, h4 {
+            color: #f39c12;
+            margin-top: 1.5em;
+            transition: text-shadow 0.3s ease, transform 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+            h1:hover, h2:hover, h3:hover {
+                text-shadow: 0 0 8px #f39c12;
+                transform: scale(1.02);
+            }
+
+        h2 {
+            border-bottom: 2px solid #f39c12;
+            padding-bottom: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1em 0;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+            table thead {
+                background: rgba(255, 255, 255, 0.08);
+                color: #f39c12;
+                font-weight: 600;
+                text-align: left;
+            }
+
+            table th, table td {
+                padding: 6px 6px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            table tbody tr:nth-child(even) {
+                background: rgba(255, 255, 255, 0.025);
+            }
+
+            table tbody tr:hover {
+                background: rgba(255, 255, 255, 0.07);
+            }
+
+        code, pre {
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffddaa;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            transition: background 0.3s ease, color 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: bold;
+        }
+
+            code:hover {
+                background: rgba(255, 255, 255, 0.15);
+                color: #ffffff;
+            }
+
+        ul, ol {
+            padding-left: 20px;
+        }
+
+        .section {
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        .download-button {
+            color: #ffffff;
+            background: rgba(243, 156, 18, 0.9);
+            backdrop-filter: blur(6px);
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease, background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            .download-button:hover {
+                background: #ffb13b;
+                transform: scale(1.05);
+                box-shadow: 0 6px 16px rgba(243, 156, 18, 0.6);
+            }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideFade {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 220px;
+            height: 100vh;
+            background: #0a1a1f;
+            padding: 30px 15px;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+            overflow-y: auto;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+            .sidebar ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .sidebar li {
+                margin: 12px 0;
+            }
+
+            .sidebar a {
+                color: #f39c12;
+                text-decoration: none;
+                font-weight: 600;
+                display: block;
+                padding: 6px 12px;
+                border-radius: 4px;
+                position: relative;
+                transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+            }
+
+                .sidebar a:hover {
+                    background: rgba(255, 255, 255, 0.08);
+                    color: #ffffff;
+                    transform: translateX(4px);
+                }
+
+                .sidebar a::before {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 4px;
+                    height: 100%;
+                    background: transparent;
+                    transition: background-color 0.3s ease;
+                }
+
+                .sidebar a:hover::before {
+                    background: #f39c12;
+                }
+
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: #f39c12;
+            color: #fff;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 20px;
+            z-index: 1100;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin-left: 0;
+                margin: 20px;
+                padding: 20px;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                width: 220px;
+                background: rgba(10, 26, 31, 0.95);
+            }
+
+                .sidebar.active {
+                    transform: translateX(0);
+                }
+
+            .menu-toggle {
+                display: block;
+            }
+        }
+    </style>
+
+
+</head>
+<body>
+    <div class="sidebar">
+        <ul>
+            <li><a href="#intro">1. Giới thiệu</a></li>
+            <li><a href="#install">2. Cài đặt & cập nhật</a></li>
+            <li><a href="#modes">3. Chế độ gõ</a></li>
+            <li><a href="#maps">4. Bảng mã & kiểu gõ</a></li>
+            <li><a href="#app-config">5. Cấu hình theo ứng dụng</a></li>
+            <li><a href="#smart-type">6. Gõ thông minh</a></li>
+            <li><a href="#ai">7. Tác vụ AI</a></li>
+            <li><a href="#advanced">8. Soạn thảo nâng cao</a></li>
+            <li><a href="#feedback">9. Góp ý</a></li>
+        </ul>
+    </div>
+    <button class="menu-toggle">☰</button>
+    <div class="container">
+        <h1>Hướng dẫn sử dụng bộ gõ tiếng Việt Sigma</h1>
+        <div class="section">
+            <h2 id="intro">1. Giới thiệu</h2>
+            <p><strong>Sigma</strong> là một bộ gõ tiếng Việt hiện đại dành cho <code>Windows 10</code> và <code>Windows 11</code> (64-bit), được phát triển bởi Phạm Hoàng Nhật.</p>
+            <p>Không giống các bộ gõ truyền thống vốn gò bó, Sigma được thiết kế để:</p>
+            <ul>
+                <li>Linh hoạt, thích ứng với mọi người dùng.</li>
+                <li>Hạn chế lỗi sai khi gõ nhanh, gõ nhầm.</li>
+                <li>Hỗ trợ nhiều ngữ cảnh sử dụng: văn phòng, kỹ thuật, học tập, lập trình, game, và các ứng dụng hiện đại.</li>
+                <li>Tích hợp xử lý ngôn ngữ bằng trí tuệ nhân tạo (<code>AI</code>).</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2 id="install">2. Cài đặt và cập nhật Sigma</h2>
+
+            <ul>
+                <li>Nhấn đúp <code>SigmaSetup.exe</code> để cài đặt.</li>
+                <li>
+                    <strong>
+                        ➤ Tải tại:
+                        <a href="https://www.dropbox.com/scl/fi/tonwmsur6h3ycnm9bf15v/SigmaSetup.exe?rlkey=lpq4al9w142yu83pm5hmxq8nw&st=urfiscwc&dl=1"
+                           class="download-button"
+                           target="_blank">
+                            Tải SigmaSetup.exe
+                        </a>
+                    </strong>
+                </li>
+            </ul>
+
+            <p>Không cần quyền <code>admin</code>. Cài xong sẽ tự khởi động cùng Windows.</p>
+
+            <p><strong>Sigma tự động cập nhật khi có phiên bản mới.</strong></p>
+        </div>
+
+        <div class="section">
+            <h2 id="modes">3. Các chế độ gõ và chuyển đổi ngôn ngữ</h2>
+
+            <p><strong>Sigma</strong> có 3 chế độ gõ:</p>
+            <ul>
+                <li><strong>Tiếng Anh:</strong> Gõ nguyên bản, không xử lý dấu – dùng cho lập trình, trình duyệt...</li>
+                <li><strong>Tiếng Việt:</strong> Gõ tiếng Việt đầy đủ theo kiểu <code>Telex</code>, <code>VNI</code> hoặc <code>Tự định nghĩa</code>.</li>
+                <li><strong>Tiếng Việt linh hoạt:</strong> Tự chuyển sang tiếng Anh khi thao tác chuột/phím → tránh lỗi trong AutoCAD, Photoshop, game...</li>
+            </ul>
+
+            <p><strong>Chuyển đổi chế độ:</strong></p>
+            <ul>
+                <li><code>Ctrl trái</code>: Luân phiên giữa 3 chế độ.</li>
+                <li><code>Shift trái</code>: Chuyển ngôn ngữ tạm cho 1 từ đang gõ → tự quay lại.</li>
+            </ul>
+
+            <p><strong>Thông minh:</strong> Khi bạn gõ nhầm chế độ, chỉ cần chuyển đúng → Sigma tự sửa từ vừa gõ.</p>
+
+            <p><strong>Hiển thị chế độ:</strong> Biểu tượng nhỏ sẽ hiện giữa màn hình:</p>
+            <ul>
+                <li><strong>Cam mờ:</strong> Tiếng Việt</li>
+                <li><strong>Cam đậm:</strong> Linh hoạt</li>
+                <li><strong>Xanh dương:</strong> Tạm thời (Shift)</li>
+                <li><strong>Tím:</strong> Đang xử lý AI</li>
+                <li><strong>Không hiển thị:</strong> Tiếng Anh</li>
+            </ul>
+        </div>
+
+
+        <div class="section">
+            <h2 id="maps">4. Bảng mã & kiểu gõ tiếng Việt</h2>
+
+            <p><strong>Bảng mã hỗ trợ:</strong></p>
+            <ul>
+                <li><code>Unicode</code>: Mặc định, khuyên dùng.</li>
+                <li><code>VNI</code>: Dành cho văn bản dùng font <code>VNI-</code>.</li>
+                <li><code>TCVN3</code>: Dành cho văn bản dùng font <code>.VN</code>.</li>
+            </ul>
+
+            <p><strong>Kiểu gõ:</strong></p>
+            <ul>
+                <li><code>Telex</code>, <code>VNI</code>: Phổ biến.</li>
+                <li><code>Tự định nghĩa</code>: Dùng đồng thời <code>Telex</code> + <code>VNI</code> + cá nhân hóa.</li>
+            </ul>
+
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Telex</th>
+                        <th>VNI</th>
+                        <th>Tự định nghĩa</th>
+                        <th>Sigma hiểu là</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>S</code></td><td><code>1</code></td><td><code>S</code> <code>1</code> <code>...</code> </td><td><code>Sắc</code></td></tr>
+                    <tr><td><code>F</code></td><td><code>2</code></td><td><code>F</code> <code>2</code> <code>...</code> </td><td><code>Huyền</code></td></tr>
+                    <tr><td><code>R</code></td><td><code>3</code></td><td><code>R</code> <code>3</code> <code>...</code> </td><td><code>Hỏi</code></td></tr>
+                    <tr><td><code>X</code></td><td><code>4</code></td><td><code>X</code> <code>4</code> <code>...</code> </td><td><code>Ngã</code></td></tr>
+                    <tr><td><code>J</code></td><td><code>5</code></td><td><code>J</code> <code>5</code> <code>...</code> </td><td><code>Nặng</code></td></tr>
+                    <tr><td><code>W</code></td><td><code>8</code></td><td><code>W</code> <code>8</code> <code>...</code> </td><td><code>a → ă</code></td></tr>
+                    <tr><td><code>A</code></td><td><code>6</code></td><td><code>A</code> <code>6</code> <code>...</code> </td><td><code>a → â</code></td></tr>
+                    <tr><td><code>E</code></td><td><code>6</code></td><td><code>E</code> <code>6</code> <code>...</code> </td><td><code>e → ê</code></td></tr>
+                    <tr><td><code>O</code></td><td><code>6</code></td><td><code>O</code> <code>6</code> <code>...</code> </td><td><code>o → ô</code></td></tr>
+                    <tr><td><code>W</code></td><td><code>7</code></td><td><code>W</code> <code>7</code> <code>...</code> </td><td><code>o → ơ</code></td></tr>
+                    <tr><td><code>W</code></td><td><code>7</code></td><td><code>W</code> <code>7</code> <code>...</code> </td><td><code>u → ư</code></td></tr>
+                    <tr><td><code>D</code></td><td><code>9</code></td><td><code>D</code> <code>9</code> <code>...</code> </td><td><code>d → đ</code></td></tr>
+                </tbody>
+            </table>
+
+            <p><strong>Ví dụ:</strong> Gõ <code>hoafng</code> hoặc <code>hoa2ng</code> đều ra <code>hoàng</code>.</p>
+
+            <p><strong>Khuyến nghị:</strong> Giữ nguyên kiểu gõ mặc định trên các máy tính dùng chung, người dùng có thói quen khác nhau.</p>
+
+            <p><strong>Luân phiên dấu:</strong> Gõ lại phím dấu sẽ chuyển qua các dấu đã gán → cuối cùng là “không dấu”.</p>
+
+            <p><strong>Ví dụ:</strong> Gán <code>S</code> cho dấu sắc → gõ <code>a</code><code>s</code> → <code>á</code> → gõ tiếp <code>s</code> → <code>a</code>.</p>
+
+            <p><strong>Lưu ý:</strong> Không nên gán quá nhiều dấu vào 1 phím để tránh thao tác chậm.</p>
+
+        </div>
+
+        <div class="section">
+            <h2 id="app-config">5. Cấu hình theo ứng dụng</h2>
+
+            <p>Mỗi ứng dụng sẽ có cấu hình gõ riêng (chế độ, kiểu gõ, bảng mã...) được <strong>Sigma</strong> tự động lưu và khôi phục.</p>
+
+            <p><strong>Ví dụ:</strong></p>
+            <ul>
+                <li><code>Word</code>: Unicode + Tiếng Việt</li>
+                <li><code>AutoCAD</code>: TCVN3 + Tiếng Anh (bật linh hoạt khi sửa text)</li>
+                <li><code>Chrome</code>: Unicode + Tiếng Anh (bật linh hoạt khi cần)</li>
+                <li><code>Zalo</code>: Unicode + Tiếng Việt</li>
+            </ul>
+
+            <p><strong>Mở cấu hình:</strong> Nhấn <code>Ctrl phải</code> để chỉnh cấu hình cho ứng dụng đang dùng.</p>
+
+            <p><strong>Lợi ích:</strong> Không cần chỉnh tay mỗi lần đổi ứng dụng – Sigma tự nhớ và áp dụng chính xác.</p>
+        </div>
+
+        <div class="section">
+            <h2 id="smart-type">6. Gõ thông minh</h2>
+
+            <h3>Phục hồi từ sai</h3>
+            <p>Nếu gõ nhầm thành từ tiếng Anh, chỉ cần xóa ký tự sai cuối cùng → Sigma tự khôi phục lại từ tiếng Việt.</p>
+            <p><em>Ví dụ:</em> Gõ <code>hoàng</code> → gõ dư <code>l</code> → thành <code>hoangfl</code> → xóa <code>l</code> → Sigma sửa thành <code>hoàng</code>.</p>
+
+            <h3>Gõ thiếu – tự chèn</h3>
+            <p>Gõ thiếu ký tự → chỉ cần bổ sung → Sigma tự tìm vị trí hợp lý để chèn và sắp xếp lại.</p>
+            <p><em>Ví dụ:</em> Gõ <code>hòng</code>, sau đó thêm <code>a</code> → Sigma ra <code>hoàng</code>.</p>
+
+            <h3>Rút gọn âm cuối</h3>
+            <p>Gõ 1 ký tự thay cho <code>nh</code> hoặc <code>ng</code>, Sigma sẽ tự hiểu.</p>
+            <p><em>Ví dụ:</em> <code>ba</code>+<code>h</code> → <code>banh</code>; <code>hoà</code>+<code>g</code> → <code>hoàng</code>.</p>
+
+            <h3>Biến đổi vần</h3>
+            <p>Gõ các tổ hợp như <code>i</code><code>e</code> → <code>iê</code>, <code>u</code><code>o</code> → <code>uô</code>, <code>ư</code><code>o</code> → <code>ươ</code></p>
+
+            <h3>Ứng dụng có Autosuggest</h3>
+            <p>Hoạt động mượt với <code>Excel</code>, <code>Google Docs</code>, <code>VS Code</code>... không gây lỗi khi gõ tiếng Việt.</p>
+
+            <h3>Ứng dụng cũ</h3>
+            <p>Nếu phần mềm không hỗ trợ Unicode → bật tùy chọn <code>Sử dụng clipboard khi gửi phím</code>.</p>
+            <p><strong>Sigma</strong> sẽ giữ nguyên nội dung clipboard ban đầu sau khi dán.</p>
+        </div>
+
+        <div class="section">
+            <h2 id="ai">7. Tác vụ AI tích hợp</h2>
+
+            <p><strong>Sigma</strong> không chỉ hỗ trợ gõ tiếng Việt mà còn tích hợp <code>AI</code> để xử lý văn bản thông minh ngay trong lúc làm việc.</p>
+
+            <h3>Các tác vụ mặc định</h3>
+            <ul>
+                <li><code>Chuyển mã Unicode</code> – từ VNI, TCVN3 sang Unicode.</li>
+                <li><code>Dịch tiếng Việt ⇄ tiếng Anh</code>.</li>
+                <li><code>Kiểm tra chính tả</code> – cho cả tiếng Việt và tiếng Anh.</li>
+            </ul>
+
+            <h3>Cách sử dụng</h3>
+            <ul>
+                <li>Nhấn <code>Ctrl phải</code> → Đổi tác vụ AI cần thực hiện nếu cần.</li>
+                <li>Bôi đen đoạn văn bản.</li>
+                <li>Nhấn <code>Ctrl trái + Shift trái</code> nhanh.</li>
+                <li>Chờ vài giây → kết quả tự động thay thế nội dung đã chọn.</li>
+            </ul>
+            <p><em>Lưu ý: không chạm chuột/phím trong khi AI xử lý. Biểu tượng màu tím sẽ hiển thị khi đang hoạt động.</em></p>
+
+            <h3>Ứng dụng thực tế</h3>
+            <ul>
+                <li>Viết email, báo cáo, nội dung nhanh & chuyên nghiệp.</li>
+                <li>Viết lại đoạn văn, tóm tắt, chuyển phong cách văn bản.</li>
+                <li>Dịch nhanh tài liệu, chuyển mã văn bản cũ.</li>
+            </ul>
+
+            <h3>Tùy chỉnh tác vụ AI</h3>
+            <ul>
+                <li>Nhấp phải vào biểu tượng <strong>Sigma</strong> ở system tray.</li>
+                <li>Chọn <code>Tùy chỉnh tác vụ AI…</code>.</li>
+                <li>Có thể thêm như: <code>Tóm tắt nội dung dài</code>, <code>Viết lại đoạn văn</code>, <code>Chuyển thành văn nói hài hước</code>…</li>
+            </ul>
+
+            <p><strong>→ Sigma là bộ gõ + trợ lý AI giúp bạn viết hiệu quả và chuyên nghiệp hơn.</strong></p>
+        </div>
+
+        <div class="section">
+            <h2 id="advanced">8. Thao tác soạn thảo nâng cao</h2>
+
+            <p><strong>Sigma</strong> cung cấp một số phím hỗ trợ giúp bạn soạn thảo nhanh và chính xác hơn.</p>
+
+            <h3>Phím tắt hữu ích</h3>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr><th>Phím</th><th>Tác dụng</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>←</code> <code>→</code></td><td>Di chuyển con trỏ trong từ đang gõ để sửa nhanh</td></tr>
+                    <tr><td><code>Shift + Backspace</code></td><td>Xoá nhanh toàn bộ từ bên trái con trỏ</td></tr>
+                    <tr><td><code>Esc</code></td><td>Ngắt từ thủ công, dùng để gõ <code>PascalCase</code>, <code>camelCase</code>…</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Ví dụ dùng <code>Esc</code></h3>
+            <p>Gõ <code>Bộ</code> → <code>Esc</code> → <code>Gõ</code> → <code>Esc</code> → <code>Tiếng</code> → <code>Esc</code> → <code>Việt</code> → ra <code>BộGõTiếngViệt</code></p>
+
+            <h3>Lợi ích</h3>
+            <ul>
+                <li>Giúp sửa từ nhanh, không cần xóa toàn bộ.</li>
+                <li>Hữu ích khi lập trình, viết tài liệu kỹ thuật hoặc hashtag.</li>
+                <li>Gõ kiểu chuẩn như <code>camelCase</code> mà không bị lỗi dấu.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2 id="feedback">9. Đóng góp ý kiến</h2>
+
+            <p>Bạn có thể gửi góp ý, báo lỗi hoặc đề xuất tính năng cho <strong>Sigma</strong> trực tiếp trong phần mềm.</p>
+
+            <h3>Cách gửi góp ý</h3>
+            <ul>
+                <li>Nhấp phải chuột vào biểu tượng <code>Sigma</code> ở góc dưới bên phải màn hình.</li>
+                <li>Chọn <code>Đóng góp ý kiến…</code> và điền nội dung cần gửi.</li>
+            </ul>
+
+            <h3>Nội dung có thể gửi</h3>
+            <ul>
+                <li>Ý tưởng cải tiến, tính năng mong muốn.</li>
+                <li>Báo lỗi trong quá trình sử dụng.</li>
+                <li>Thông tin liên hệ (nếu muốn được phản hồi).</li>
+            </ul>
+
+            <p><strong>Góp ý của bạn giúp Sigma tốt hơn mỗi ngày.</strong></p>
+        </div>
+
+    </div>
+    <script>
+        const toggle = document.querySelector('.menu-toggle');
+        const sidebar = document.querySelector('.sidebar');
+
+        toggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+
+        let timeout;
+
+        sidebar.addEventListener('mouseleave', () => {
+            if (sidebar.classList.contains('active')) {
+                timeout = setTimeout(() => {
+                    sidebar.classList.remove('active');
+                }, 200);
+            }
+        });
+
+        sidebar.addEventListener('mouseenter', () => {
+            clearTimeout(timeout);
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (e.clientX <= 10 && !sidebar.classList.contains('active')) {
+                sidebar.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>

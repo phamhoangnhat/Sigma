@@ -38,7 +38,7 @@
 </head>
 <body>
     <button id="toggle-btn">Bản chi tiết</button>
-    <iframe id="view-container" src="Sigma User Guide Summary.html"></iframe>
+    <iframe id="view-container" src="SigmaUserGuideSummary.html"></iframe>
 
     <script>
         const toggleBtn = document.getElementById("toggle-btn");
@@ -47,7 +47,7 @@
         let isFull = false;
         toggleBtn.onclick = () => {
             isFull = !isFull;
-            viewContainer.src = isFull ? "Sigma User Guide Full.html" : "Sigma User Guide Summary.html";
+            viewContainer.src = isFull ? "SigmaUserGuideFull.html" : "SigmaUserGuideSummary.html";
             toggleBtn.textContent = isFull ? "Bản rút gọn" : "Bản chi tiết";
         };
     </script>
