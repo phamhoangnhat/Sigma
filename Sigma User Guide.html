@@ -188,13 +188,15 @@
             left: 0;
             width: 220px;
             height: 100vh;
-            background: #0a1a1f;
+            background: rgba(15, 46, 60, 0.3);
+            backdrop-filter: blur(100px);
+            -webkit-backdrop-filter: blur(100px);
             padding: 30px 15px;
-            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.4);
+            box-shadow: 2px 0 12px rgba(0, 0, 0, 0.3);
             z-index: 1000;
             overflow-y: auto;
             border-right: 1px solid rgba(255, 255, 255, 0.05);
-            transition: transform 0.3s ease;
+            transition: transform 0.8s ease;
         }
 
             .sidebar ul {
@@ -271,7 +273,9 @@
                     transform: translateX(-100%);
                     position: fixed;
                     width: 220px;
-                    background: rgba(10, 26, 31, 0.95);
+                    background: rgba(15, 46, 60, 0.3);
+                    backdrop-filter: blur(100px);
+                    -webkit-backdrop-filter: blur(100px);
                 }
 
                     .sidebar.active {
@@ -353,6 +357,8 @@
                     <li><code>Shift trái</code>: Chuyển ngôn ngữ tạm cho 1 từ đang gõ → tự quay lại.</li>
                 </ul>
 
+                <p><em>Lưu ý: <code>Ctrl trái</code><code>Shift trái</code> là phím Ctrl, Shift ở phía bên trái bàn phím</em></p>
+
                 <p><strong>Thông minh:</strong> Khi bạn gõ nhầm chế độ, chỉ cần chuyển đúng → Sigma tự sửa từ vừa gõ.</p>
 
                 <p><strong>Hiển thị chế độ:</strong> Biểu tượng nhỏ sẽ hiện giữa màn hình:</p>
@@ -414,7 +420,7 @@
 
                 <p><strong>Ví dụ:</strong> Gán <code>S</code> cho dấu sắc → gõ <code>a</code><code>s</code> → <code>á</code> → gõ tiếp <code>s</code> → <code>a</code>.</p>
 
-                <p><strong>Lưu ý:</strong> Không nên gán quá nhiều dấu vào 1 phím để tránh thao tác chậm.</p>
+                <p><em>Lưu ý: Không nên gán quá nhiều dấu vào 1 phím để tránh thao tác chậm.</em></p>
 
             </div>
 
