@@ -3,7 +3,7 @@
 **Sigma** là phần mềm gõ tiếng Việt hiện đại dành cho Windows, cấu hình theo ứng dụng, và tích hợp AI.
 
 ## 📘 Hướng dẫn sử dụng chi tiết và cài đặt
-👉 [Xem tài liệu đầy đủ (HTML)](https://htmlpreview.github.io/?https://github.com/phamhoangnhat/Sigma/blob/main/Sigma%20User%20Guide.html)
+👉 [Xem tài liệu hướng dẫn sử dụng và link cài đặt phần mềm (HTML))](https://htmlpreview.github.io/?https://github.com/phamhoangnhat/Sigma/blob/main/Sigma%20User%20Guide.html)
 Tài liệu có giao diện sidebar, điều hướng nhanh, và phân chia rõ các mục:
 - Cài đặt & cập nhật
 - Cấu hình theo ứng dụng
