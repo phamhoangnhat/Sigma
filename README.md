@@ -27,7 +27,6 @@ Nếu bạn muốn build lại phần mềm từ mã nguồn, hãy build `SigmaL
 
 - Qt 6.9.0  
 - Visual Studio 2022 hoặc mới hơn  
-- Windows 10 trở lên (64-bit)  
 - Đặt sẵn `SigmaLib.dll` trong cùng thư mục build với `Sigma.exe`
 
 ### Các bước thực hiện
