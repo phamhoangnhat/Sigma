@@ -313,6 +313,7 @@
 				<li><a href="#sum-ai">7. Tác vụ AI</a></li>
 				<li><a href="#sum-shortcut">8. Bảng phím tắt</a></li>
 				<li><a href="#sum-feedback">9. Đóng góp ý kiến</a></li>
+				<li><a href="#sum-other">10. Các vấn đề khác</a></li>
 			</ul>
 		</div>
 		<button class="menu-toggle">☰</button>
@@ -521,6 +522,13 @@
 				<p>Bạn có thể tùy biến thêm kiểu gõ <code>Tích hợp</code> bằng cách nhấp vào biểu tượng Sigma ở khay hệ
 					thống (góc dưới bên phải màn hình), sau đó chọn mục <code>Tùy chỉnh kiểu gõ tích hợp</code>.</p>
 
+				<p>Ví dụ: bạn có thể thiết lập gõ <code>[</code> để thay cho dấu đầu của chữ <code>ơ</code>,
+					<code>]</code> để thay cho dấu đầu của chữ <code>ư</code>, giống như các bộ gõ tiếng Việt khác.
+					Khi đó:
+					<br>Gõ <code>o</code> <code>[</code> → <code>ơ</code>
+					<br>Gõ <code>[</code> → <code>ơ</code>
+				</p>
+
 				<p><strong>Khuyến nghị:</strong> Nên sử dụng kiểu gõ <code>Tích hợp</code> trên các máy tính dùng
 					chung để đảm bảo tính linh hoạt cho nhiều người dùng.</p>
 			</div>
@@ -575,13 +583,18 @@
 							<td></td>
 						</tr>
 						<tr>
+							<td>Khôi phục từ gốc khi gõ sai chính tả</td>
+							<td><code class="default-value">Bật</code> <code>Tắt</code></td>
+							<td></td>
+						</tr>
+						<tr>
 							<td>Sử dụng clipboard khi gửi phím</td>
-							<td><code>Bật</code> <code>Tắt</code></td>
+							<td><code>Bật</code> <code>Tắt</code> (giá trị mặc định tùy theo ứng dụng)</td>
 							<td></td>
 						</tr>
 						<tr>
 							<td>Tương thích với ứng dụng có gợi ý từ</td>
-							<td><code>Bật</code> <code>Tắt</code></td>
+							<td><code>Bật</code> <code>Tắt</code> (giá trị mặc định tùy theo ứng dụng)</td>
 							<td></td>
 						</tr>
 						<tr>
@@ -711,14 +724,43 @@
 					nhắn), bạn có thể bật nhanh chế độ tiếng Việt. Sau đó, nếu thao tác chuột diễn ra, Sigma sẽ tự động
 					chuyển về tiếng Anh để tránh nhầm lẫn.</p>
 
+				<h4>Khôi phục từ gốc khi gõ sai chính tả</h4>
+				<p>Tùy chọn này nên bật hầu hết mọi lúc vì rất phù hợp khi gõ tiếng Việt xen lẫn một vài từ tiếng Anh.
+					Khi bạn gõ từ tiếng Anh, Sigma nhận diện đó không phải từ tiếng Việt hợp lệ và tự động chuyển sang
+					tiếng Anh.
+					Tuy nhiên, nếu bạn cần gõ các từ tiếng Việt không theo quy tắc chính tả thông thường hoặc các từ
+					tiếng Việt dính liền,
+					bạn nên tạm thời tắt tùy chọn này.</p>
+				<p><strong>Ví dụ:</strong></p>
+				<ul>
+					<li><code>N</code> <code>Đ</code> <code>C</code> <code>P</code> → <code>NĐCP</code></li>
+					<li><code>Đắ</code> <code>k</code> <code>Lắ</code> <code>k</code> → <code>Đắk Lắk</code></li>
+					<li><code>Đắ</code> <code>k</code> <code>G</code> <code>lông</code> → <code>Đắk Glong</code></li>
+				</ul>
+				<p>Để gõ được các từ trên, Sigma sẽ hiểu chúng như các từ tiếng Việt hợp lệ nhưng được gõ dính liền
+					(<code>Đắ</code> + <code>k</code> → <code>Đắk</code>).
+					Vì vậy, bạn cần nhấn phím dấu đúng lúc khi gõ từ đó; nếu đã chuyển sang gõ từ khác,
+					bạn sẽ không thể gõ dấu cho từ trước đó được nữa.</p>
+
+				<p>Tùy chọn này nên tắt khi bạn cần gõ các từ đặc biệt trên, và bật lại ngay sau khi gõ xong.
+					Vì các từ này ít gặp và thường chỉ gõ trong một số ứng dụng, bạn nên gán phím tắt cho tùy chọn này
+					để thao tác nhanh hơn, thay vì phải gọi bảng để bật tắt thủ công.</p>
+
+				<p>Nếu bạn tắt tùy chọn này trên bảng <strong>Cấu hình ứng dụng</strong>,
+					Sigma sẽ chuyển dòng chữ của tùy chọn này sang màu đỏ</strong>
+					để nhắc nhở và giúp bạn dễ nhận biết trạng thái hiện tại có thực sự nên tắt nó hay không.</p>
+
 				<h4>Sử dụng clipboard khi gửi phím</h4>
 				<p>Khi bật tùy chọn này, Sigma sẽ gửi văn bản bằng cách sao chép nội dung vào clipboard và dán ra, thay
 					vì mô phỏng từng phím nhấn.</p>
 				<p>Tùy chọn này đặc biệt hữu ích khi làm việc với các ứng dụng không hỗ trợ Unicode hoặc bị lỗi khi nhập
 					tiếng Việt theo cách gõ phím thông thường.</p>
-				<p>Với các ứng dụng được phát hiện là không hỗ trợ gõ ký tự Unicode trực tiếp (ví dụ như
+				<p>
+					Với các ứng dụng được phát hiện là không hỗ trợ gõ ký tự Unicode trực tiếp (ví dụ như
 					<strong>AutoCAD</strong>), Sigma sẽ <strong>tự động bật tùy chọn này làm mặc định</strong> khi bạn
-					sử dụng lần đầu hoặc khôi phục thiết lập gốc. Người dùng vẫn có thể tắt lại nếu muốn.
+					sử dụng lần đầu hoặc khôi phục thiết lập gốc. Người dùng vẫn có thể tắt nếu muốn.
+					Nếu tắt, Sigma sẽ đổi dòng chữ của tùy chọn này sang màu đỏ kèm lưu ý</strong> để cảnh báo rằng
+					thiết lập này có thể gây lỗi gõ trong một số trường hợp với ứng dụng hiện tại.
 				</p>
 				<p><strong>Lưu ý:</strong> Tùy chọn này có thể tạm thời ghi đè nội dung clipboard hiện tại. Tuy nhiên,
 					Sigma có khả năng <em>tự động khôi phục nội dung clipboard gốc</em> sau khi hoàn tất thao tác, giúp
@@ -730,9 +772,13 @@
 				<p>Với các ứng dụng được phát hiện là dễ xảy ra lỗi khi sử dụng gợi ý từ (ví dụ: trình duyệt web, Excel,
 					ứng dụng nhắn tin, trình soạn mã...), Sigma sẽ <strong>tự động bật tùy chọn này làm mặc
 						định</strong> khi bạn sử dụng lần đầu hoặc khôi phục thiết lập gốc. Người dùng vẫn có thể tắt
-					nếu không cần thiết.</p>
+					nếu muốn. Nếu tắt, Sigma sẽ đổi dòng chữ của tùy chọn này sang màu đỏ</strong> kèm lưu ý để cảnh báo
+					rằng thiết lập này có thể gây lỗi gõ trong một số trường hợp
+					với ứng dụng hiện tại.</p>
 				<p><strong>Lưu ý:</strong> Bật tùy chọn này giúp tránh xung đột và cải thiện độ chính xác khi gõ. Tuy
-					nhiên, trong một số trường hợp, có thể khiến phản hồi nhập liệu hơi chậm.</p>
+					nhiên, trong một số trường hợp, có thể khiến phản hồi nhập liệu hơi chậm. Một số người dùng có thể
+					tự tắt tính năng gợi ý từ trên các ứng dụng họ đang gõ. Khi đó, việc bật tính năng này
+					trên Sigma không còn cần thiết và bạn có thể tắt nó đi, đồng thời bỏ qua phần cảnh báo.</p>
 
 				<h4>Tự động viết hoa thông minh</h4>
 				<p>Tính năng này giúp bạn tự động viết hoa chữ cái đầu câu hoặc sau dấu câu mà không cần giữ phím
@@ -952,16 +998,6 @@
 							<td><code>Shift → M</code></td>
 							<td>Chuyển đổi giữa các bảng mã. Từ đang gõ cũng chuyển theo bảng mã mới</td>
 						</tr>
-						<tr>
-							<td><code>Shift → L</code></td>
-							<td>
-								Bật chế độ gõ các từ tiếng Việt dính liền, phù hợp khi bạn muốn gõ liền các cụm viết tắt
-								hoặc từ ghép không có dấu cách như
-								<code>NĐCP</code>, <code>BộGõTiếngViệt</code>. Chế độ này sẽ tự động tắt khi bạn nhấn
-								<code>dấu cách</code>, <code>Enter</code>, <code>Tab</code>, hoặc
-								<code>kích chuột</code>.
-							</td>
-						</tr>
 					</tbody>
 				</table>
 			</div>
@@ -1173,10 +1209,6 @@
 							<td><code>Shift → H</code></td>
 						</tr>
 						<tr>
-							<td>Bật chế độ gõ các từ tiếng Việt dính liền</td>
-							<td><code>Shift → L</code></td>
-						</tr>
-						<tr>
 							<td>Gọi bảng <code>cấu hình ứng dụng</code></td>
 							<td><code>Shift → U</code></td>
 						</tr>
@@ -1222,6 +1254,10 @@
 						</tr>
 						<tr>
 							<td>Bật / Tắt <code>Sử dụng chế độ tiếng Việt chủ động</code> cho ứng dụng</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Bật / Tắt <code>Khôi phục từ gốc khi gõ sai chính tả</code> cho ứng dụng</td>
 							<td></td>
 						</tr>
 						<tr>
@@ -1278,7 +1314,8 @@
 				<p>Các phím tắt trong bảng này là mặc định khi cài đặt <strong>Sigma</strong>. Người dùng có thể
 					<strong>thêm</strong>, <strong>xóa</strong> hoặc <strong>tắt</strong> các phím tắt này bằng cách
 					nhấp vào biểu tượng <strong>Sigma</strong> trên khay hệ thống và chọn
-					<code>Trình quản lý phím tắt</code>.</p>
+					<code>Trình quản lý phím tắt</code>.
+				</p>
 			</div>
 
 			<div class="section">
@@ -1301,6 +1338,25 @@
 				</ul>
 
 				<p><strong>Góp ý của bạn giúp Sigma tốt hơn mỗi ngày.</strong></p>
+			</div>
+
+			<div class="section">
+				<h2 id="sum-other">10. Các vấn đề khác</h2>
+				<h4>Lưu ý khi gõ trong Notepad</h3>
+				<p>Khi sử dụng <strong>Notepad</strong> trên Windows 11, nếu bật <strong>Spell check</strong> (kiểm tra
+					chính tả), bạn sẽ gặp lỗi gõ tiếng Việt: mất chữ, nhảy chữ, gõ không đúng.</p>
+				<p><strong>Để gõ tiếng Việt đúng trong Notepad, bắt buộc phải tắt Spell check</strong>. Hiện không có
+					cách nào khác.</p>
+
+				<p>Cách tắt Spell check trong Notepad (Windows 11):</p>
+				<ul>
+					<li>Mở <strong>Notepad</strong>.</li>
+					<li>Nhấn vào biểu tượng <strong>bánh răng (Cài đặt / Settings)</strong> ở góc trên bên phải cửa sổ.
+					</li>
+					<li>Tìm mục <strong>Spell check</strong> (hoặc <strong>Kiểm tra chính tả</strong>).</li>
+					<li>Tắt công tắc <strong>Spell check</strong>.</li>
+				</ul>
+
 			</div>
 
 		</div>
