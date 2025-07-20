@@ -21,7 +21,7 @@ Update& Update::getInstance()
 Update::Update(QObject* parent)
     : QObject(parent)
 {
-    updateUrl = "https://www.dropbox.com/scl/fi/nvq5bkclcbzeaqczkrwzn/update.dat?rlkey=0hu7uv1y8634iaydpohk71m79&st=840fcod5&dl=1";
+    updateUrl = "https://raw.githubusercontent.com/phamhoangnhat/Sigma/main/update.dat";
     tempDir = QDir::tempPath();
     appDir = QCoreApplication::applicationDirPath();
     downloadDir = "";
