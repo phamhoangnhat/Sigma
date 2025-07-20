@@ -71,7 +71,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>
-      <AdditionalLibraryDirectories>C:\Users\Admin\Desktop\Library\Sigma\Sigma\x64\Release</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Library\Sigma\Sigma\x64\Release</AdditionalLibraryDirectories>
       <AdditionalDependencies>SigmaLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -104,6 +104,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AdminPrivilegeManager.cpp" />
     <ClCompile Include="Update.cpp" />
     <QtRcc Include="Sigma.qrc" />
     <QtUic Include="Sigma.ui" />
@@ -113,6 +114,7 @@
     <QtMoc Include="Update.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="AdminPrivilegeManager.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
