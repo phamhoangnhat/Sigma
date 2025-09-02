@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chính sách Quyền riêng tư – Sigma (Tiếng Việt)</title>
+  <meta name="description" content="Chính sách Quyền riêng tư của Sigma – Bộ gõ tiếng Việt cho Windows. Nêu rõ dữ liệu được truy cập/xử lý, chia sẻ, bảo mật, quyền của người dùng, và tích hợp Google Gemini API.">
+  <meta property="og:title" content="Chính sách Quyền riêng tư – Sigma (Tiếng Việt)">
+  <meta property="og:description" content="Chính sách Quyền riêng tư của Sigma – Bộ gõ tiếng Việt cho Windows.">
+  <meta name="theme-color" content="#0ea5e9">
+  <style>
+    :root{
+      --bg:#0b1220;
+      --paper:#ffffff;
+      --ink:#0f172a;
+      --muted:#475569;
+      --accent:#0ea5e9;
+      --border:#e5e7eb;
+      --code:#f8fafc;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      line-height:1.65;
+      color:var(--ink);
+      background:#f7fafc;
+    }
+    header.hero{
+      background:linear-gradient(135deg,#e0f2fe, #f0f9ff);
+      border-bottom:1px solid var(--border);
+      padding:48px 16px 28px;
+    }
+    .container{max-width:960px;margin:0 auto;padding:0 16px}
+    h1{margin:0 0 8px;font-size:2rem;letter-spacing:.2px}
+    .sub{color:var(--muted);font-size:.98rem}
+    .badge{display:inline-block;background:#ecfeff;color:#0c4a6e;border:1px solid #bae6fd;
+           padding:.25rem .5rem;border-radius:999px;font-size:.8rem;margin-left:.5rem}
+    nav.toc{
+      background:var(--paper);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:16px;
+      margin:24px 0;
+    }
+    nav.toc h2{font-size:1rem;margin:0 0 8px;color:#0c4a6e}
+    nav.toc ol{margin:0;padding-left:18px}
+    nav.toc a{text-decoration:none;color:#0369a1}
+    section{background:var(--paper);border:1px solid var(--border);border-radius:14px;padding:24px;margin:16px 0}
+    h2{margin-top:0;font-size:1.35rem}
+    h3{font-size:1.05rem;margin-top:1.25rem}
+    code, pre{background:var(--code);border:1px solid var(--border);border-radius:8px;padding:2px 6px}
+    a{color:#0369a1}
+    .footer{color:var(--muted);font-size:.92rem;margin:24px 0 56px;text-align:center}
+    .note{background:#f0f9ff;border-left:4px solid var(--accent);padding:10px 12px;border-radius:8px}
+    ul{margin-top:.25rem}
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <h1>CHÍNH SÁCH QUYỀN RIÊNG TƯ</h1>
+      <p class="sub">
+        <strong>Áp dụng cho:</strong> Sigma – Bộ gõ tiếng Việt cho Windows (Win32/Desktop Bridge)
+        <span class="badge">Phiên bản hiện hành và các bản cập nhật sau này</span>
+        <br>
+        <strong>Nhà phát triển:</strong> Phạm Hoàng Nhật &nbsp;•&nbsp;
+        <strong>Ngày hiệu lực:</strong> 03/09/2025
+      </p>
+      <p class="note">Việc cài đặt hoặc sử dụng Sigma đồng nghĩa với việc bạn đã đọc và đồng ý với chính sách này.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <nav class="toc" aria-label="Mục lục">
+      <h2>Mục lục</h2>
+      <ol>
+        <li><a href="#scope">Phạm vi &amp; định nghĩa</a></li>
+        <li><a href="#data-types">Dữ liệu Sigma truy cập/thu thập &amp; mục đích</a></li>
+        <li><a href="#lawful-basis">Cơ sở pháp lý (toàn cầu; bổ sung EU/UK)</a></li>
+        <li><a href="#retention">Lưu trữ &amp; thời hạn</a></li>
+        <li><a href="#sharing">Chia sẻ dữ liệu</a></li>
+        <li><a href="#security">Bảo mật</a></li>
+        <li><a href="#rights">Quyền &amp; lựa chọn của bạn</a></li>
+        <li><a href="#children">Trẻ em</a></li>
+        <li><a href="#xborder">Lãnh thổ &amp; chuyển dữ liệu quốc tế</a></li>
+        <li><a href="#thirdparty">Liên kết bên thứ ba</a></li>
+        <li><a href="#contact">Cách liên hệ</a></li>
+        <li><a href="#changes">Thay đổi Chính sách</a></li>
+        <li><a href="#summary">Tóm tắt minh bạch</a></li>
+        <li><a href="#appendix">Phụ lục A – Ví dụ</a></li>
+      </ol>
+    </nav>
+
+    <section id="scope">
+      <h2>1. Phạm vi &amp; định nghĩa</h2>
+      <ul>
+        <li><strong>Sản phẩm:</strong> Ứng dụng đầu vào/bộ gõ tiếng Việt chạy trên Windows 10/11 64‑bit.</li>
+        <li><strong>Dữ liệu cá nhân:</strong> Thông tin có thể liên quan đến một cá nhân (văn bản bạn gõ, nội dung clipboard tạm thời, cấu hình người dùng…).</li>
+        <li><strong>Dịch vụ AI bên thứ ba:</strong> Dịch vụ xử lý ngôn ngữ mà bạn chủ động sử dụng để thực hiện các “tác vụ AI”.</li>
+      </ul>
+    </section>
+
+    <section id="data-types">
+      <h2>2. Dữ liệu Sigma truy cập/thu thập và mục đích sử dụng</h2>
+      <h3>2.1. Dữ liệu bàn phím/văn bản bạn gõ</h3>
+      <ul>
+        <li><strong>Truy cập:</strong> Sigma đọc phím bạn gõ để chuyển đổi dấu tiếng Việt, sửa vần, viết hoa…</li>
+        <li><strong>Xử lý:</strong> Diễn ra <em>cục bộ trên thiết bị</em>.</li>
+        <li><strong>Lưu trữ:</strong> Không ghi log; chỉ sử dụng bộ nhớ tạm trong RAM để vận hành.</li>
+        <li><strong>Mục đích:</strong> Cung cấp chức năng bộ gõ; sửa lỗi gõ; điều hướng con trỏ; chuyển đổi bảng mã (Unicode/VNI/TCVN3)…</li>
+      </ul>
+
+      <h3>2.2. Clipboard (bảng tạm)</h3>
+      <p>Khi bật tuỳ chọn <em>“Sử dụng clipboard khi gửi phím”</em>, Sigma có thể đọc clipboard hiện tại, chép tạm kết quả gõ vào clipboard và dán ra ứng dụng mục tiêu, sau đó cố gắng khôi phục clipboard gốc. Chúng tôi <strong>không gửi</strong> nội dung clipboard ra ngoài thiết bị.</p>
+
+      <h3>2.3. Cấu hình, danh sách &amp; dữ liệu học máy cục bộ</h3>
+      <p>Cấu hình theo từng ứng dụng và cấu hình chung của Sigma được lưu <strong>trên thiết bị</strong>. Danh sách gõ tắt, danh sách “từ tiếng Anh đã ghi nhớ”… cũng chỉ lưu cục bộ.</p>
+
+      <h3>2.4. Tác vụ AI tích hợp (tuỳ chọn)</h3>
+      <ul>
+        <li>Khi bạn <strong>chủ động gọi</strong> tác vụ AI, Sigma sẽ <strong>chỉ gửi</strong> đoạn văn bản bạn chọn (hoặc “đoạn vừa gõ” trong bộ nhớ tạm) tới <strong>Google Gemini API</strong> để xử lý tại endpoint hiện dùng:<br>
+          <code>https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent</code></li>
+        <li><strong>Dữ liệu gửi đi:</strong> nội dung văn bản; ngữ cảnh tối thiểu; khoá API nếu bạn cung cấp.</li>
+        <li><strong>Bên xử lý dữ liệu:</strong> Google (Gemini API). Việc xử lý, lưu trữ và thời hạn lưu do Google quyết định theo chính sách/tài liệu của họ. Tham khảo:
+          <ul>
+            <li>Chính sách quyền riêng tư: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">https://policies.google.com/privacy</a></li>
+            <li>Tài liệu/điều khoản Gemini API do Google công bố.</li>
+          </ul>
+        </li>
+        <li><strong>Kiểm soát của bạn:</strong> Không dùng tác vụ AI thì không có dữ liệu nào được gửi đi.</li>
+        <li><strong>Lưu trữ tại Sigma:</strong> Sigma <em>không</em> lưu trữ nội dung đã gửi trên máy chủ của chúng tôi.</li>
+        <li><strong>Khuyến nghị:</strong> Tránh gửi thông tin nhạy cảm (mật khẩu, khoá riêng, dữ liệu tài chính…).</li>
+        <li><strong>Thay đổi nhà cung cấp:</strong> Nếu có thay đổi/bổ sung, chúng tôi sẽ cập nhật trang Chính sách này và ghi ngày hiệu lực.</li>
+      </ul>
+
+      <h3>2.5. Kiểm tra và tải cập nhật</h3>
+      <p>Sigma có thể kiểm tra phiên bản (khi có Internet). Các yêu cầu mạng có thể bao gồm địa chỉ IP do hạ tầng cung cấp tự nhiên; chúng tôi không gắn kết với danh tính cá nhân.</p>
+
+      <h3>2.6. Quyền chạy với tư cách Quản trị (Admin)</h3>
+      <p>Nếu bạn bật chạy Sigma với quyền Admin, Sigma tương tác ở mức quyền tương ứng; phạm vi dữ liệu không thay đổi, nhưng nên thận trọng vì quyền cao luôn có rủi ro bảo mật lớn hơn khi hệ thống bị phần mềm độc hại xâm nhập.</p>
+    </section>
+
+    <section id="lawful-basis">
+      <h2>3. Cơ sở pháp lý (toàn cầu; bổ sung EU/UK)</h2>
+      <p>Sigma được phân phối toàn cầu. Phần này mô tả cơ sở xử lý theo GDPR áp dụng cho người dùng tại EU/EEA/UK; tại các khu vực khác, chúng tôi tuân thủ luật sở tại.</p>
+      <ul>
+        <li>Thực hiện hợp đồng/điều khoản dịch vụ khi bạn cài đặt và dùng Sigma.</li>
+        <li>Lợi ích hợp pháp: vận hành bộ gõ, đảm bảo tương thích ứng dụng, cải thiện trải nghiệm gõ.</li>
+        <li>Sự đồng ý: khi bạn bật và sử dụng <strong>tác vụ AI</strong> (gửi dữ liệu tới Google Gemini API).</li>
+      </ul>
+    </section>
+
+    <section id="retention">
+      <h2>4. Lưu trữ &amp; thời hạn</h2>
+      <ul>
+        <li><strong>Cục bộ:</strong> Cấu hình/danh sách gõ tắt… lưu đến khi bạn đổi hoặc xoá.</li>
+        <li><strong>Bộ nhớ tạm:</strong> Đoạn văn tạm để gọi tác vụ AI sẽ xoá khi bạn tiếp tục gõ, thao tác chuột, đóng ứng dụng hoặc khởi động lại.</li>
+        <li><strong>Bên thứ ba (AI):</strong> theo thời hạn lưu trữ của Google.</li>
+      </ul>
+    </section>
+
+    <section id="sharing">
+      <h2>5. Chia sẻ dữ liệu</h2>
+      <ul>
+        <li>Không bán dữ liệu cá nhân; không chia sẻ cho đối tác quảng cáo.</li>
+        <li>Chỉ chia sẻ khi bạn chủ động dùng tác vụ AI → dữ liệu gửi tới Google để thực thi yêu cầu.</li>
+        <li>Tiết lộ theo yêu cầu pháp lý khi cần thiết.</li>
+      </ul>
+    </section>
+
+    <section id="security">
+      <h2>6. Bảo mật</h2>
+      <ul>
+        <li>Giao tiếp mạng (cập nhật, gọi AI) dùng kết nối bảo mật chuẩn (ví dụ: HTTPS).</li>
+        <li>Nguyên tắc tối thiểu: chỉ xử lý dữ liệu cần thiết.</li>
+        <li>Lưu trữ cục bộ cấu hình; Sigma không vận hành máy chủ thu thập văn bản gõ.</li>
+      </ul>
+      <p class="note"><strong>Khuyến nghị:</strong> Tránh gửi thông tin mật vào tác vụ AI.</p>
+    </section>
+
+    <section id="rights">
+      <h2>7. Quyền &amp; lựa chọn của bạn</h2>
+      <ul>
+        <li>Tắt/bật tính năng trong mục Cấu hình; gỡ khoá API; vô hiệu hoá phím tắt; không dùng tác vụ AI.</li>
+        <li><strong>Xoá dữ liệu cục bộ:</strong> dùng tuỳ chọn “Xoá các thiết lập đã lưu” trong menu khay của Sigma; hoặc gỡ cài đặt.</li>
+        <li><strong>Dữ liệu đã gửi tới Google:</strong> thực hiện theo quyền/quy trình do Google quy định.</li>
+        <li>Sigma không triển khai phân tích hành vi hoặc quảng cáo theo dõi.</li>
+      </ul>
+    </section>
+
+    <section id="children">
+      <h2>8. Trẻ em</h2>
+      <p>Sản phẩm <strong>không hướng tới</strong> trẻ em dưới 13 tuổi. Nếu bạn là phụ huynh/người giám hộ và cho rằng dữ liệu trẻ em đã được gửi tới dịch vụ AI bên thứ ba, vui lòng làm việc với Google theo chính sách của họ, đồng thời liên hệ với chúng tôi (mục 11).</p>
+    </section>
+
+    <section id="xborder">
+      <h2>9. Lãnh thổ &amp; chuyển dữ liệu quốc tế</h2>
+      <p>Khi bạn sử dụng <strong>tác vụ AI</strong>, dữ liệu có thể được truyền tới <strong>Google</strong> và xử lý trên các máy chủ đặt tại quốc gia khác nơi bạn cư trú (ví dụ Hoa Kỳ hoặc khu vực nơi Google vận hành hạ tầng). Việc chuyển dữ liệu quốc tế được thực hiện để cung cấp dịch vụ bạn yêu cầu và <strong>tuân theo chính sách/điều khoản của Google</strong>. Bạn có thể chọn <em>không dùng tác vụ AI</em> để tránh việc truyền dữ liệu ra ngoài lãnh thổ.</p>
+    </section>
+
+    <section id="thirdparty">
+      <h2>10. Liên kết bên thứ ba</h2>
+      <p>Sigma có thể hiển thị hoặc dẫn link (ví dụ: đường dẫn tải/cập nhật). Chúng tôi không chịu trách nhiệm về nội dung hoặc thực tiễn quyền riêng tư của các trang/dịch vụ đó.</p>
+    </section>
+
+    <section id="contact">
+      <h2>11. Cách liên hệ với chúng tôi</h2>
+      <ul>
+        <li><strong>Nhà phát triển:</strong> Phạm Hoàng Nhật</li>
+        <li><strong>Email hỗ trợ:</strong> <a href="mailto:phamhoangnhat@gmail.com">phamhoangnhat@gmail.com</a></li>
+        <li><strong>Kênh hỗ trợ khác:</strong> Mục “Đóng góp ý kiến” đi kèm trong ứng dụng</li>
+      </ul>
+    </section>
+
+    <section id="changes">
+      <h2>12. Thay đổi Chính sách</h2>
+      <p>Chính sách này áp dụng cho <strong>mọi phiên bản Sigma</strong>, bao gồm các bản cập nhật/bản vá/phát hành bảo trì. Bản cập nhật phần mềm không làm thay đổi phạm vi xử lý dữ liệu trừ khi Chính sách này cũng được cập nhật tương ứng. Phiên bản mới sẽ được đăng tại URL Chính sách và có hiệu lực kể từ ngày ghi ở đầu tài liệu. Nếu thay đổi đáng kể (ví dụ: thay đổi/bổ sung nhà cung cấp AI hoặc phạm vi dữ liệu), chúng tôi sẽ ghi chú rõ ràng trong ghi chú phát hành và/hoặc trong ứng dụng.</p>
+    </section>
+
+    <section id="summary">
+      <h2>13. Tóm tắt minh bạch</h2>
+      <ul>
+        <li><strong>Mặc định cục bộ:</strong> Không gửi văn bản gõ đi đâu nếu bạn <em>không</em> gọi tác vụ AI.</li>
+        <li><strong>Clipboard:</strong> Có thể dùng clipboard tạm thời để dán văn bản; cố gắng khôi phục clipboard gốc.</li>
+        <li><strong>AI (Gemini):</strong> Chỉ gửi đoạn bạn yêu cầu tới Google Gemini; hãy cân nhắc khi nội dung nhạy cảm.</li>
+        <li><strong>Cấu hình:</strong> Lưu trên máy bạn; bạn có thể xoá bất kỳ lúc nào.</li>
+      </ul>
+    </section>
+
+    <section id="appendix">
+      <h2>Phụ lục A – Ví dụ về dữ liệu/tuỳ chọn</h2>
+      <ul>
+        <li><strong>Bảng mã:</strong> Unicode, VNI Windows, TCVN3; <strong>Kiểu gõ:</strong> Telex, VNI, Tích hợp.</li>
+        <li><strong>Tính năng nâng cao:</strong> xoá toàn bộ dấu, bỏ dấu xoay vòng, chèn ký tự bị thiếu, tự động viết hoa, tương thích app có gợi ý từ…</li>
+        <li><strong>Tác vụ AI mặc định:</strong> kiểm tra chính tả (VI/EN), dịch VI/EN, chuyển mã Unicode.</li>
+        <li><strong>Khởi động/cập nhật:</strong> có thể khởi động cùng Windows; kiểm tra phiên bản khi có Internet.</li>
+      </ul>
+    </section>
+
+    <p class="footer">© Phạm Hoàng Nhật — Chính sách này có thể được cập nhật. Hãy kiểm tra lại định kỳ.</p>
+  </main>
+</body>
+</html>
