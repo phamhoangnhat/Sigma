@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Hướng dẫn sử dụng Sigma</title>
+	<style>
+		body {
+			font-family: 'Inter', sans-serif;
+			background: linear-gradient(135deg, #091921, #0f2e3c);
+			color: #e0e0e0;
+			margin: 0;
+			padding: 0;
+			line-height: 1.7;
+			user-select: none;
+			transition: background 0.3s ease, color 0.3s ease;
+		}
+
+		html {
+			scroll-behavior: smooth;
+		}
+
+		#toggle-btn {
+			position: fixed;
+			top: 10px;
+			right: 10px;
+			background: #f39c12;
+			color: white;
+			border: none;
+			padding: 10px 18px;
+			font-size: 14px;
+			border-radius: 6px;
+			z-index: 1000;
+			cursor: pointer;
+			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+		}
+
+		#toggle-btn:hover {
+			background: #ffb13b;
+			transform: scale(1.05);
+			box-shadow: 0 6px 16px rgba(243, 156, 18, 0.6);
+		}
+
+		#summary-content,
+		#full-content {
+			display: none;
+		}
+
+		.container {
+			max-width: 960px;
+			margin: 40px auto;
+			padding: 30px;
+			background: rgba(28, 46, 64, 0.9);
+			border-radius: 16px;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+			border: 1px solid rgba(255, 255, 255, 0.05);
+			backdrop-filter: blur(12px);
+			animation: slideFade 0.6s ease;
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
+			margin-left: 240px;
+		}
+
+		.container:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+		}
+
+		h1,
+		h2,
+		h3,
+		h4 {
+			color: #f39c12;
+			margin-top: 1.5em;
+			transition: text-shadow 0.3s ease, transform 0.3s ease;
+			letter-spacing: 0.5px;
+		}
+
+		h1:hover,
+		h2:hover,
+		h3:hover {
+			text-shadow: 0 0 8px #f39c12;
+			transform: scale(1.02);
+		}
+
+		h2 {
+			border-bottom: 2px solid #f39c12;
+			padding-bottom: 5px;
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			margin: 1em 0;
+			background: rgba(255, 255, 255, 0.03);
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			border-radius: 8px;
+			overflow: hidden;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+		}
+
+		table thead {
+			background: rgba(255, 255, 255, 0.08);
+			color: #f39c12;
+			font-weight: 600;
+			text-align: left;
+		}
+
+		table th,
+		table td {
+			padding: 6px 6px;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+		}
+
+		table tbody tr:nth-child(even) {
+			background: rgba(255, 255, 255, 0.025);
+		}
+
+		table tbody tr:hover {
+			background: rgba(255, 255, 255, 0.07);
+		}
+
+		code,
+		pre {
+			background: rgba(255, 255, 255, 0.08);
+			color: #ffddaa;
+			padding: 3px 8px;
+			border-radius: 5px;
+			font-family: 'Courier New', monospace;
+			transition: background 0.3s ease, color 0.3s ease;
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			font-weight: bold;
+		}
+
+		code:hover {
+			background: rgba(255, 255, 255, 0.15);
+			color: #ffffff;
+		}
+
+		ul,
+		ol {
+			padding-left: 20px;
+		}
+
+		.section {
+			animation: fadeIn 0.6s ease-in-out;
+		}
+
+		.download-button {
+			color: #ffffff;
+			background: rgba(243, 156, 18, 0.9);
+			backdrop-filter: blur(6px);
+			padding: 10px 20px;
+			border-radius: 8px;
+			text-decoration: none;
+			font-weight: 600;
+			display: inline-block;
+			margin-top: 10px;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+			transition: transform 0.2s ease, background 0.3s ease, box-shadow 0.3s ease;
+		}
+
+		.download-button:hover {
+			background: #ffb13b;
+			transform: scale(1.05);
+			box-shadow: 0 6px 16px rgba(243, 156, 18, 0.6);
+		}
+
+		.default-value {
+			color: rgba(243, 156, 18, 0.9);
+			font-weight: bold;
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+				transform: translateY(12px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		@keyframes slideFade {
+			from {
+				opacity: 0;
+				transform: translateY(30px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.sidebar {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 220px;
+			height: 100vh;
+			background: rgba(15, 46, 60);
+			padding: 30px 15px;
+			box-shadow: 2px 0 12px rgba(0, 0, 0, 0.3);
+			z-index: 1000;
+			overflow-y: auto;
+			border-right: 1px solid rgba(255, 255, 255, 0.05);
+			transition: transform 0.8s ease;
+		}
+
+		.sidebar ul {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+
+		.sidebar li {
+			margin: 12px 0;
+		}
+
+		.sidebar a {
+			color: #f39c12;
+			text-decoration: none;
+			font-weight: 600;
+			display: block;
+			padding: 6px 12px;
+			border-radius: 4px;
+			position: relative;
+			transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+		}
+
+		.sidebar a:hover {
+			background: rgba(255, 255, 255, 0.08);
+			color: #ffffff;
+			transform: translateX(4px);
+		}
+
+		.sidebar a::before {
+			content: "";
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 4px;
+			height: 100%;
+			background: transparent;
+			transition: background-color 0.3s ease;
+		}
+
+		.sidebar a:hover::before {
+			background: #f39c12;
+		}
+
+		.menu-toggle {
+			display: none;
+			position: fixed;
+			top: 10px;
+			left: 10px;
+			background: #f39c12;
+			color: #fff;
+			border: none;
+			padding: 10px 14px;
+			border-radius: 6px;
+			font-size: 20px;
+			z-index: 1100;
+			cursor: pointer;
+		}
+
+		.menu-toggle:hover {
+			background: #ffb13b;
+			transform: scale(1.05);
+			box-shadow: 0 6px 16px rgba(243, 156, 18, 0.6);
+		}
+
+		@media (max-width: 768px) {
+			.container {
+				margin-left: 0;
+				margin: 20px;
+				padding: 20px;
+			}
+
+			.sidebar {
+				transform: translateX(-100%);
+				position: fixed;
+				width: 220px;
+				background: rgba(15, 46, 60, 0.3);
+				backdrop-filter: blur(100px);
+				-webkit-backdrop-filter: blur(100px);
+			}
+
+			.sidebar.active {
+				transform: translateX(0);
+			}
+
+			.menu-toggle {
+				display: block;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div>
+		<div class="sidebar">
+			<ul>
+				<li><a href="#sum-intro">1. Introduction</a></li>
+				<li><a href="#sum-install">2. Installation & Updates</a></li>
+				<li><a href="#sum-modes">3. Input Modes</a></li>
+				<li><a href="#sum-maps">4. Character Sets & Input Styles</a></li>
+				<li><a href="#sum-app-config">5. Configuration</a></li>
+				<li><a href="#sum-advanced">6. Advanced Editing</a></li>
+				<li><a href="#sum-ai">7. AI Features</a></li>
+				<li><a href="#sum-shortcut">8. Keyboard Shortcuts</a></li>
+				<li><a href="#sum-feedback">9. Feedback</a></li>
+				<li><a href="#sum-other">10. Miscellaneous</a></li>
+			</ul>
+		</div>
+		<button class="menu-toggle">☰</button>
+		<div class="container">
+			<h1>User Guide for Sigma Vietnamese Input Method 2.0.8</h1>
+			<div class="section">
+				<h2 id="sum-intro">1. Introduction</h2>
+				<p>
+					<strong>Sigma</strong> is a modern Vietnamese input method editor (IME) for <code>Windows 10</code>
+					and <code>Windows 11</code> (64-bit),
+					developed by Phạm Hoàng Nhật. It is designed to overcome common limitations of other IMEs,
+					providing a more flexible, intelligent, and optimized typing experience.
+				</p>
+
+				<h3>Key Features of Sigma:</h3>
+				<p>Quickly switch between English | Vietnamese modes with a hotkey. The current word will automatically
+					adapt to the new mode without needing to delete and retype.</p>
+				<p>Temporarily switch between English and Vietnamese within the current word, useful for writing
+					Vietnamese text mixed with English terms.</p>
+				<p>Supports multiple input styles such as <code>Telex</code>, <code>VNI</code>, and
+					<code>Tích hợp</code> (Integrated), suitable for shared computers with multiple users.
+				</p>
+				<p>Provides many hotkeys to quickly change modes and configurations, helping to boost productivity.</p>
+				<p>Allows per-application configuration (<code>Thiết lập cấu hình</code>), reducing the need for manual
+					switching when working across different software.</p>
+				<p>Integrates <code>AI</code> for smarter and more flexible language processing.</p>
+
+				<h3>Important Notes for New Users:</h3>
+				<p>
+					In Sigma, settings such as English | Vietnamese mode or character set are stored per application
+					and are automatically applied when switching between windows.
+					Unlike most IMEs, you will not see an <code>E</code> or <code>V</code> indicator on the Sigma tray
+					icon to switch modes,
+					and you cannot open a global configuration panel from the tray icon to apply settings across all
+					apps.
+					Therefore, during initial use, you need to configure these options for each application you work
+					with.
+				</p>
+				<p>
+					Sigma’s hotkey mechanism is unique: you press and release the <code>Shift</code> key first,
+					then press and release the main key. This is not a simultaneous key combination like conventional
+					shortcuts,
+					allowing greater flexibility in customizing hotkeys while minimizing conflicts with other software.
+				</p>
+			</div>
+
+			<div class="section">
+				<h2 id="sum-install">2. Installing and Updating Sigma</h2>
+
+				<ul>
+					<li>
+						Double-click <code>SigmaSetup.exe</code> to install.
+						(No <code>admin</code> privileges are required.)
+					</li>
+					<li>
+						<strong>
+							<a href="https://raw.githubusercontent.com/phamhoangnhat/Sigma/main/SigmaSetup.exe"
+								class="download-button" target="_blank">
+								Download SigmaSetup.exe
+							</a>
+						</strong>
+					</li>
+				</ul>
+
+				<p>
+					On startup (if an Internet connection is available), Sigma will automatically check for updates and
+					install the latest version when available.
+				</p>
+			</div>
+
+			<div class="section">
+				<h2 id="sum-modes">3. Input Modes and Language Switching</h2>
+
+				<h3>Input Modes</h3>
+				<ul>
+					<li><code>English</code>: Plain typing, no diacritic processing.</li>
+					<li><code>Vietnamese</code>: Full Vietnamese typing using <code>Telex</code>, <code>VNI</code>, or
+						<code>Integrated</code> mode.
+					</li>
+				</ul>
+
+				<h3>Switching Modes</h3>
+				<ul>
+					<li><code>Left Ctrl + Left Shift</code>: Toggle between <code>Vietnamese</code> and
+						<code>English</code>.
+					</li>
+					<li><code>Left Ctrl</code>: Temporarily switch to the other mode for the current word being typed.
+					</li>
+				</ul>
+
+				<p>
+					When switching modes, the word currently being typed will automatically adapt to the new language —
+					no need to delete and retype.
+				</p>
+				<p>
+					Input modes are saved and automatically restored when switching between application windows,
+					reducing the need for repeated mode changes when working with multiple apps.
+				</p>
+
+				<h3>Status Icons</h3>
+				<ul>
+					<li>Pink–orange icon with <code>E</code>: <code>English</code></li>
+					<li>Green icon with <code>V</code>: <code>Vietnamese</code></li>
+				</ul>
+
+				<h3>Notes</h3>
+				<ul>
+					<li><code>Left Ctrl</code> and <code>Left Shift</code> refer to the keys on the lower-left side of
+						the keyboard.</li>
+					<li>Keys must be <strong>pressed and released quickly</strong> to take effect:</li>
+					<ul>
+						<li><code>Ctrl + Shift</code>: within <strong>1 second</strong></li>
+						<li><code>Ctrl</code> alone: within <strong>0.3 seconds</strong></li>
+					</ul>
+					<li>If the key is held too long, the action will be ignored.</li>
+				</ul>
+			</div>
+
+			<div class="section">
+				<h2 id="sum-maps">4. Character Sets & Vietnamese Input Styles</h2>
+
+				<h3>Character Sets</h3>
+				<ul>
+					<li><code>Unicode</code>: Default and recommended.</li>
+					<li><code>VNI Windows</code>: For documents using fonts with the <code>VNI-</code> prefix.</li>
+					<li><code>TCVN3 (ABC)</code>: For documents using fonts with the <code>.VN</code> prefix.</li>
+				</ul>
+
+				<h3>Input Styles</h3>
+				<ul>
+					<li><code>Telex</code>, <code>VNI</code>: The two most common input styles.</li>
+					<li><code>Tích hợp</code>: A style in Sigma that combines <code>Telex</code> and <code>VNI</code>,
+						and also allows user customization.</li>
+				</ul>
+
+				<table border="1" cellpadding="5" cellspacing="0">
+					<thead>
+						<tr>
+							<th>Telex</th>
+							<th>VNI</th>
+							<th>tích hợp</th>
+							<th>Sigma interprets as</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><code>Z</code></td>
+							<td><code>0</code></td>
+							<td><code>Z</code> <code>0</code> <code>...</code></td>
+							<td><code>Level tone</code></td>
+						</tr>
+						<tr>
+							<td><code>S</code></td>
+							<td><code>1</code></td>
+							<td><code>S</code> <code>1</code> <code>...</code></td>
+							<td><code>Acute tone</code></td>
+						</tr>
+						<tr>
+							<td><code>F</code></td>
+							<td><code>2</code></td>
+							<td><code>F</code> <code>2</code> <code>...</code></td>
+							<td><code>Grave tone</code></td>
+						</tr>
+						<tr>
+							<td><code>R</code></td>
+							<td><code>3</code></td>
+							<td><code>R</code> <code>3</code> <code>...</code></td>
+							<td><code>Question tone</code></td>
+						</tr>
+						<tr>
+							<td><code>X</code></td>
+							<td><code>4</code></td>
+							<td><code>X</code> <code>4</code> <code>...</code></td>
+							<td><code>Tilde tone</code></td>
+						</tr>
+						<tr>
+							<td><code>J</code></td>
+							<td><code>5</code></td>
+							<td><code>J</code> <code>5</code> <code>...</code></td>
+							<td><code>Dot tone</code></td>
+						</tr>
+						<tr>
+							<td><code>W</code></td>
+							<td><code>8</code></td>
+							<td><code>W</code> <code>8</code> <code>...</code></td>
+							<td><code>a → ă</code></td>
+						</tr>
+						<tr>
+							<td><code>A</code></td>
+							<td><code>6</code></td>
+							<td><code>A</code> <code>6</code> <code>...</code></td>
+							<td><code>a → â</code></td>
+						</tr>
+						<tr>
+							<td><code>E</code></td>
+							<td><code>6</code></td>
+							<td><code>E</code> <code>6</code> <code>...</code></td>
+							<td><code>e → ê</code></td>
+						</tr>
+						<tr>
+							<td><code>O</code></td>
+							<td><code>6</code></td>
+							<td><code>O</code> <code>6</code> <code>...</code></td>
+							<td><code>o → ô</code></td>
+						</tr>
+						<tr>
+							<td><code>W</code> <code>]</code></td>
+							<td><code>7</code></td>
+							<td><code>W</code> <code>]</code> <code>7</code> <code>...</code></td>
+							<td><code>o → ơ</code></td>
+						</tr>
+						<tr>
+							<td><code>W</code> <code>[</code></td>
+							<td><code>7</code></td>
+							<td><code>W</code> <code>[</code> <code>7</code> <code>...</code></td>
+							<td><code>u → ư</code></td>
+						</tr>
+						<tr>
+							<td><code>D</code></td>
+							<td><code>9</code></td>
+							<td><code>D</code> <code>9</code> <code>...</code></td>
+							<td><code>d → đ</code></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<p><strong>Example:</strong> Typing <code>a</code> <code>F</code> or <code>a</code> <code>2</code> will
+					both produce <code>à</code>.</p>
+
+				<p>You can further customize the <code>tích hợp</code> input style by right-clicking the Sigma icon in
+					the system tray (bottom-right corner of the screen), then selecting
+					<code>Tùy chỉnh kiểu gõ tích hợp</code>.
+				</p>
+
+				<p><strong>Recommendation:</strong> It is recommended to use the <code>tích hợp</code> style on shared
+					computers to ensure flexibility for multiple users.</p>
+			</div>
+
+			<div class="section">
+				<div class="section">
+
+					<h3>Global Configuration</h3>
+
+					<table border="1" cellpadding="5" cellspacing="0">
+						<thead>
+							<tr>
+								<th>Setting</th>
+								<th>Value</th>
+								<th>Shortcut</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Kiểu gõ</td>
+								<td>
+									<code>Telex</code> <code>VNI</code> <code class="default-value">Tích hợp</code>
+								</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Khởi động cùng Windows</td>
+								<td><code class="default-value">On</code> <code>Off</code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Chạy Sigma với quyền quản trị admin</td>
+								<td><code>On</code> <code class="default-value">Off</code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Khôi phục từ gốc khi gõ sai chính tả</td>
+								<td><code class="default-value">On</code> <code>Off</code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Tự động chuyển từ tiếng Anh đã ghi nhớ</td>
+								<td><code>On</code> <code class="default-value">Off</code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td style="color: rgba(240, 162, 132, 0.9);">Xóa toàn bộ dấu khi nhấn phím bỏ dấu</td>
+								<td><code>On</code> <code class="default-value">Off</code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td style="color: rgba(240, 162, 132, 0.9);">Cho phép bỏ dấu xoay vòng</td>
+								<td><code>On</code> <code class="default-value">Off</code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td style="color: rgba(240, 162, 132, 0.9);">Cho phép chèn ký tự bị thiếu</td>
+								<td><code>On</code> <code class="default-value">Off</code></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<p>
+						Settings highlighted in <strong style="color: rgba(240, 162, 132, 0.9);">pink-orange</strong>
+						are advanced features unique to Sigma that are not available in typical input methods.
+						They are <strong>disabled</strong> by default to make it easier for new users, but you can
+						enable them to explore Sigma’s distinctive typing experience.
+					</p>
+
+					<h3>Using Shortcuts</h3>
+					<p>
+						To quickly change settings, you use the <code>Shift</code> key combined with a specific shortcut
+						key:
+					</p>
+					<ul>
+						<li>Press and release the <code>Shift</code> key quickly (within <strong>0.3 seconds</strong>).
+						</li>
+						<li>Immediately after, press the corresponding shortcut key to change the setting.</li>
+						<li>
+							When the setting is successfully changed, a notification icon will appear in the middle of
+							the screen as confirmation.
+						</li>
+					</ul>
+					<p>
+						<strong>Example:</strong> To change the current character set, press and release
+						<code>Shift</code>, then press <code>M</code> repeatedly to cycle through the sets:
+						<code>Unicode</code>, <code>VNI Windows</code>, and <code>TCVN3 (ABC)</code>.
+					</p>
+					<p>
+						These shortcut keys are the default of <strong>Sigma</strong>. Users can change them or disable
+						shortcuts if desired by clicking the Sigma icon in the system tray and selecting
+						<code>Trình quản lý phím tắt</code>.
+					</p>
+
+
+					<h3>Explanation of Configuration Options</h3>
+
+					<h4>Bộ mã</h4>
+					<p>
+						Allows switching between Vietnamese character sets such as <code>Unicode</code>,
+						<code>VNI Windows</code>, and <code>TCVN3 (ABC)</code> to ensure compatibility with the software
+						or system you are using.
+					</p>
+					<p>
+						In software that requires working with multiple character sets, you can use the shortcut: press
+						<code>Shift</code>, then press <code>M</code> repeatedly to cycle through the sets. Each press
+						of <code>M</code> switches to the next set.
+					</p>
+					<p>
+						When the character set is changed, the word currently being typed will also automatically switch
+						to the new set immediately — saving time without needing to delete and retype.
+					</p>
+
+					<h4>Tác vụ AI</h4>
+					<p>Allows you to choose a default AI task for each application.</p>
+					<p>
+						To execute a task, simply select the typed text, then press <code>Shift</code>, followed by
+						<code>`</code>. Sigma will automatically perform the corresponding AI task on the selected
+						content.
+					</p>
+
+					<h4>Sử dụng chế độ tiếng Việt chủ động</h4>
+					<p>
+						When this mode is enabled, Sigma defaults to English input. To switch to Vietnamese, you need to
+						press <code>Left Ctrl + Left Shift</code>.
+					</p>
+					<p>
+						During Vietnamese typing, if you perform a mouse action (click or move), Sigma will
+						automatically switch back to English.
+					</p>
+					<p>
+						This mode is suitable for software that requires fast interaction and mainly uses English — for
+						example, shooting games, programming, or technical applications. When you need to type
+						Vietnamese (e.g., sending a message), you can quickly switch to Vietnamese. Once a mouse action
+						occurs, Sigma will return to English to avoid confusion.
+					</p>
+
+					<h4>Gõ tắt tức thì</h4>
+					<p>
+						You can choose one of the predefined shorthand lists. The default is <code>Không sử dụng</code>,
+						in which case shorthand is disabled.
+					</p>
+					<p>
+						With <strong>gõ tắt tức thì</strong>, words are automatically replaced as soon as the typed
+						sequence matches — <strong>without pressing space or punctuation</strong>.
+					</p>
+					<p>
+						Suitable for quickly inserting special symbols or frequently used abbreviations, such as
+						<code>φ</code>, <code>π</code>, <code>σ</code>, <code>√</code>.
+					</p>
+
+					<h4>Gõ tắt khi cách</h4>
+					<p>
+						You can also select one of the available shorthand lists. The default is
+						<code>Không sử dụng</code>.
+					</p>
+					<p>
+						With <strong>gõ tắt khi cách</strong>, replacement only occurs when you press
+						<strong>space</strong> or <strong>punctuation</strong>, and the typed sequence matches the list.
+					</p>
+					<p>
+						Suitable for longer phrases or templates — giving you precise control over when replacements
+						happen.
+					</p>
+
+					<h4>Formatting rules for shorthand results (applies to both modes):</h4>
+					<ul>
+						<li>If the shorthand entry is all lowercase → result keeps the same formatting as in the list.
+						</li>
+						<li>If the <strong>first</strong> character is uppercase → result is in <strong>Title
+								Case</strong>.</li>
+						<li>If the <strong>second</strong> character is uppercase → result is in
+							<strong>UPPERCASE</strong>.
+						</li>
+					</ul>
+
+					<p>
+						Shorthand results will be <strong>automatically converted according to the current character
+							set</strong>, such as <code>Unicode</code>, <code>VNI Windows</code>, or <code>TCVN3</code>,
+						ensuring compatibility with the software or document you are working on.
+					</p>
+					<p>
+						You can create multiple shorthand lists for different software or purposes. To edit, click the
+						Sigma icon in the system tray (bottom-right corner), then select
+						<code>Trình quản lý gõ tắt</code>.
+					</p>
+
+					<h4>Sử dụng clipboard khi gửi phím</h4>
+					<p>
+						When this option is enabled, Sigma sends text by copying the content to the clipboard and
+						pasting it, instead of simulating keystrokes.
+					</p>
+					<p>
+						This option is especially useful for applications that do not support Unicode or fail to handle
+						Vietnamese input via normal keystrokes.
+					</p>
+					<p>
+						For applications detected as not supporting direct Unicode input (e.g.,
+						<strong>AutoCAD</strong>), Sigma will <strong>automatically enable this option by
+							default</strong> the first time you use it or after resetting settings. Users can still
+						disable it if desired. If disabled, Sigma will display this option in red along with a warning
+						that it may cause typing errors in some cases with the current application.
+					</p>
+					<p>
+						<strong>Note:</strong> This option may temporarily overwrite the current clipboard content.
+						However, Sigma can <em>automatically restore the original clipboard content</em> after the
+						operation is complete, minimizing data loss.
+					</p>
+
+					<h4>Tương thích với ứng dụng có gợi ý từ</h4>
+					<p>
+						When enabled, Sigma adjusts keystroke handling to ensure stable operation in applications with
+						word suggestions.
+					</p>
+					<p>
+						For applications prone to issues when using word suggestions (e.g., web browsers, Excel,
+						messaging apps, code editors), Sigma will <strong>automatically enable this option by
+							default</strong> the first time you use it or after resetting settings. Users can still
+						disable it if desired. If disabled, Sigma will display this option in red with a warning that it
+						may cause typing errors in some cases with the current application.
+					</p>
+					<p>
+						<strong>Note:</strong> Enabling this helps avoid conflicts and improve accuracy when typing.
+						However, in some cases it may slightly slow down input response. Some users may prefer to
+						disable word suggestions in their applications — in that case, enabling this option in Sigma is
+						not necessary and you can turn it off, ignoring the warning.
+					</p>
+
+					<h4>Tự động viết hoa thông minh</h4>
+					<p>
+						This feature automatically capitalizes the first letter of a sentence or after punctuation
+						without needing to hold <code>Shift</code>.
+					</p>
+					<ul>
+						<li>
+							When starting a new line or after punctuation such as <code>.</code>, <code>!</code>,
+							<code>?</code>, the first character of the next sentence will be capitalized automatically.
+						</li>
+						<li>
+							If you capitalize the second character of a word (e.g., <code>vIệt</code>), Sigma interprets
+							it as a request to capitalize the entire word, and it will automatically change to
+							<code>VIỆT</code>.
+						</li>
+					</ul>
+					<p>
+						This saves time when typing quickly while maintaining correct spelling rules. It is especially
+						useful for writing documents or chatting.
+					</p>
+
+					<h4>Cho phép dùng phụ âm đầu "f", "j", "w", "z"</h4>
+					<p>
+						When this option is enabled, you can type Vietnamese words with initial consonants like
+						<code>f</code>,
+						<code>j</code>, <code>w</code>, <code>z</code> without being treated as spelling errors.
+					</p>
+					<p>
+						If you also enable <strong>"Khôi phục từ gốc khi gõ sai chính tả"</strong>, the system will not
+						revert to the original word in cases where you intentionally type words such as:
+					</p>
+					<ul>
+						<li><code>zui wá</code></li>
+						<li><code>zậy sao</code></li>
+						<li><code>jì thế</code></li>
+					</ul>
+					<p>
+						To allow more non-standard words, you should disable <strong>"Khôi phục từ gốc khi gõ sai chính
+							tả"</strong>.
+					</p>
+
+					<h4>Dùng phím ← → để điều hướng từng từ</h4>
+					<p>
+						Allows using arrow keys to navigate through segments of the current word/phrase, making quick
+						edits easier.
+						However, <strong>this option is not recommended in code editors</strong> (e.g., when
+						programming),
+						since word-based navigation with arrow keys may interfere when editing nested strings or code
+						syntax.
+					</p>
+					<hr>
+
+					<h4>Kiểu gõ</h4>
+					<p>
+						You can choose between common input methods such as <code>Telex</code>, <code>VNI</code>, or
+						<code>Tích hợp</code>.
+					</p>
+
+					<h4>Khởi động cùng Windows</h4>
+					<p>Automatically launch Sigma whenever Windows starts, so you don’t need to open it manually each
+						time.</p>
+
+					<h4>Khởi động Sigma với quyền quản trị (Admin)</h4>
+					<p>
+						By default, Sigma runs with normal user privileges. In this mode, it cannot interact with
+						applications running under administrator rights.
+					</p>
+					<p>
+						When this option is enabled, Sigma will run with full administrator privileges, allowing it to
+						work normally with all applications, including those requiring admin rights.
+					</p>
+					<p><strong>Note:</strong> This change only takes effect after you <strong>restart Sigma</strong>.
+					</p>
+					<p>
+						This feature is not available in older versions and cannot be added through updates. If you
+						don’t see this option in the configuration, please <strong>uninstall and reinstall</strong>
+						Sigma to use it.
+					</p>
+
+					<h4>Khôi phục từ gốc khi gõ sai chính tả</h4>
+					<p>
+						This option is useful if you often mix Vietnamese and English. When enabled, Sigma automatically
+						switches to English if it detects that the typed word is not valid Vietnamese.
+					</p>
+					<p>
+						However, if you need to type special cases such as abbreviations or place names with glued
+						diacritics (e.g., <code>Đắk Lắk</code>), it’s better to disable this option.
+					</p>
+
+					<p><strong>Example:</strong></p>
+					<ul>
+						<li><code>N</code> <code>Đ</code> <code>C</code> <code>P</code> → <code>NĐCP</code></li>
+						<li><code>Đắ</code> <code>k</code> <code>Lắ</code> <code>k</code> → <code>Đắk Lắk</code></li>
+						<li><code>Đắ</code> <code>k</code> <code>G</code> <code>long</code> → <code>Đắk Glong</code>
+						</li>
+					</ul>
+
+					<p>
+						In such cases, Sigma interprets your input as valid glued Vietnamese (e.g., <code>Đắ</code> +
+						<code>k</code> → <code>Đắk</code>).
+						You need to add diacritics at the correct time. Once you move to the next word, you
+						<strong>cannot add accents to the previous word</strong>.
+					</p>
+					<p><em>Tip:</em> Assign a shortcut to this option so you can toggle it quickly when needed.</p>
+
+					<h4>Tự động chuyển từ tiếng Anh đã ghi nhớ</h4>
+					<p>
+						When this option is enabled, Sigma remembers English words that you manually switched using
+						<code>Left Ctrl</code> or by pressing a diacritic key twice. Later, when you type those words
+						again, Sigma will automatically switch to English mode.
+					</p>
+					<p>
+						This feature is especially useful if you use <code>Telex</code> or <code>Tích hợp</code>, where
+						English words can be mistaken for accented Vietnamese — for example:
+					</p>
+
+					<ul>
+						<code>t</code> <code>e</code> <code>s</code> <code>t</code> → <code>tét</code>
+					</ul>
+
+					<p>
+						When such misinterpretations occur, press <code>Left Ctrl</code> or a diacritic key to switch to
+						English. If you press <code>space</code> or punctuation to finish the word, Sigma will remember
+						it as English and handle it correctly in the future.
+					</p>
+					<p>
+						If later you want to type it as Vietnamese again, press <code>Left Ctrl</code> once more or
+						<code>Backspace</code>. Sigma will revert to Vietnamese and remove the word from the memory
+						list.
+					</p>
+
+					<ul>
+						<li><code>t</code> <code>e</code> <code>s</code> <code>s</code> <code>t</code> →
+							<code>test</code>
+						</li>
+						<li>Or <code>t</code> <code>e</code> <code>s</code> <code>t</code> → <code>tét</code> press
+							<code>Left Ctrl</code> → <code>test</code>
+						</li>
+						<li>Word <code>test</code> saved; next time typing <code>t</code> <code>e</code> <code>s</code>
+							<code>t</code> → <code>test</code>
+						</li>
+						<li><code>t</code> <code>e</code> <code>s</code> <code>t</code> → <code>test</code> press
+							<code>Left Ctrl</code> or <code>Backspace</code> → <code>tét</code> (word <code>test</code>
+							removed from memory)
+						</li>
+					</ul>
+
+					<p>Sigma stores memory lists per application to ensure words are typed correctly in context.</p>
+
+					<p><strong>Example:</strong></p>
+					<ul>
+						<li>In <strong>AutoCAD</strong>: typing <code>e</code> <code>x</code> → <code>ex</code>
+							(auto-switched to English)</li>
+						<li>In another app: typing <code>e</code> <code>x</code> → <code>ẽ</code> (kept as Vietnamese)
+						</li>
+					</ul>
+
+
+					<h4>Xóa toàn bộ dấu khi nhấn phím bỏ dấu</h4>
+					<p>
+						When this option is enabled, each time you press the remove-diacritic key, Sigma will
+						<strong>remove all diacritics</strong> from the current word, including:
+					</p>
+					<ul>
+						<li>
+							Diacritics on characters: <code>â</code>, <code>ă</code>, <code>ê</code>, <code>ô</code>,
+							<code>ơ</code>, <code>ư</code>, <code>đ</code>
+						</li>
+						<li>Tone marks: sắc, huyền, hỏi, ngã, nặng</li>
+					</ul>
+
+					<p><strong>Example when enabled (using Telex):</strong></p>
+					<ul>
+						<li><code>"Đất"</code>, type <code>d</code> → <code>"Datd"</code></li>
+						<li><code>"Đất"</code>, type <code>a</code> → <code>"Data"</code></li>
+						<li><code>"Đất"</code>, type <code>s</code> → <code>"Dats"</code></li>
+						<li><code>"Đất"</code>, type <code>z</code> → <code>"Dat"</code></li>
+					</ul>
+
+					<p><strong>Example when disabled:</strong></p>
+					<ul>
+						<li><code>"Đất"</code>, type <code>d</code> → <code>"Dấtd"</code></li>
+						<li><code>"Đất"</code>, type <code>a</code> → <code>"Đáta"</code></li>
+						<li><code>"Đất"</code>, type <code>s</code> → <code>"Đâts"</code></li>
+						<li><code>"Đất"</code>, type <code>z</code> → <code>"Đât"</code></li>
+					</ul>
+
+					<p>
+						When disabled, this behaves like other common Vietnamese input methods:
+						<strong>only removing the last tone mark or accent</strong>, while keeping the others intact.
+					</p>
+					<p>
+						This is an <strong>advanced option</strong> unique to Sigma, suitable for users who want to
+						quickly convert a word to non-accented form with just one key press.
+					</p>
+
+					<h4>Cho phép bỏ dấu xoay vòng</h4>
+					<p>
+						When enabled, you can repeatedly press tone keys such as <code>s</code>, <code>f</code>,
+						<code>r</code>, <code>x</code>, <code>j</code> to cycle states:
+					</p>
+					<ul>
+						<li><strong>No diacritic → With diacritic → No diacritic</strong></li>
+					</ul>
+					<p>
+						Example: type <code>a</code> <code>s</code> → <code>á</code>, type <code>s</code> again →
+						<code>a</code>.
+					</p>
+					<p>
+						Useful for quickly correcting diacritics without deleting and retyping.
+					</p>
+					<p>
+						For new Sigma users unfamiliar with switching languages via <code>Ctrl</code>, you may disable
+						this option to keep the traditional method: pressing the tone key twice switches to English.
+					</p>
+					<p>
+						Example: type <code>e</code> <code>x</code> → <code>ẽ</code>, type <code>x</code> again →
+						<code>ex</code> (removes diacritic and keeps the base letter).
+					</p>
+
+					<h4>Cho phép chèn ký tự bị thiếu</h4>
+					<p>
+						If you miss a character → just add it → Sigma will automatically insert it at the correct
+						position and rearrange the syllable.
+						This also works when characters are typed in the wrong order due to fast typing — Sigma will
+						adjust if the word is still recognized as valid.
+					</p>
+					<p><strong>Example:</strong> Type <code>h</code> <code>o</code> <code>n</code> <code>g</code>, then
+						add <code>a</code> → <code>hoang</code>.</p>
+					<p>
+						Very useful for fast typists, reducing spelling errors while maintaining smooth typing speed.
+						However, when enabled, Sigma becomes highly sensitive to Vietnamese input, which may be
+						inconvenient in apps with lots of English typing.
+					</p>
+					<p>
+						Therefore, this option is designed to be configured per-application. You are encouraged to
+						enable it in Vietnamese-focused apps (word processors, social media…) and disable it in
+						English-heavy apps (IDE, technical browsers).
+					</p>
+
+					<h4>Note when enabling enhanced features</h4>
+					<p>The following features are developed by Sigma to make Vietnamese typing more flexible:</p>
+					<ul>
+						<li><code>Xóa toàn bộ dấu khi nhấn phím bỏ dấu</code></li>
+						<li><code>Cho phép bỏ dấu xoay vòng</code></li>
+						<li><code>Cho phép chèn ký tự bị thiếu</code></li>
+					</ul>
+
+					<p>
+						However, when these are enabled, if you are in Vietnamese mode and type English words, they may
+						be unintentionally transformed.
+						In this case, you cannot switch to English by the traditional method of pressing the tone key
+						twice. Instead, you must use <strong>Left Ctrl</strong> to switch the current word to English.
+					</p>
+					<p>
+						This is a unique Sigma feature — not available in other input methods — so new users may need
+						time to adapt. These advanced features should only be enabled once you are comfortable with
+						using <strong>Left Ctrl</strong> for language switching during typing.
+					</p>
+					<p>
+						When enabled, Sigma will automatically display the related option text in <strong>red</strong>
+						along with a warning, to alert users that it may cause difficulties for beginners or those who
+						prefer traditional typing. This helps users be aware and make an informed choice.
+					</p>
+
+				</div>
+
+				<div class="section">
+					<h2 id="sum-advanced">6. Advanced Editing</h2>
+
+					<p><strong>Sigma</strong> provides several shortcut keys to help you type faster and more
+						accurately.</p>
+
+					<h3>Useful Shortcuts</h3>
+					<table border="1" cellpadding="5" cellspacing="0">
+						<thead>
+							<tr>
+								<th>Key</th>
+								<th>Function</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><code>←</code></td>
+								<td>Move the cursor to the previous word for quick editing</td>
+							</tr>
+							<tr>
+								<td><code>→</code></td>
+								<td>Move the cursor to the next word for quick editing</td>
+							</tr>
+							<tr>
+								<td><code>Shift + Backspace</code></td>
+								<td>Quickly delete the entire word to the left of the cursor</td>
+							</tr>
+							<tr>
+								<td><code>Left Ctrl + Left Shift</code></td>
+								<td>
+									Switch language mode between <code>English</code> and <code>Vietnamese</code>.
+									The current word being typed will also switch to the new language.
+								</td>
+							</tr>
+							<tr>
+								<td><code>Left Ctrl</code></td>
+								<td>
+									Temporarily switch the current word to <code>English</code> or
+									<code>Vietnamese</code>.
+								</td>
+							</tr>
+							<tr>
+								<td><code>Right Ctrl</code></td>
+								<td>
+									Perform spell check on the recently typed text (still in memory).
+								</td>
+							</tr>
+							<tr>
+								<td><code>Shift → H</code></td>
+								<td>
+									Cycle between <code>UPPERCASE</code>, <code>lowercase</code>,
+									<code>Title Case</code>, and
+									<code>Sentence case</code> for the <b>current word</b> or the <b>selected text</b>.
+								</td>
+							</tr>
+							<tr>
+								<td><code>Shift → M</code></td>
+								<td>Switch between character sets. The current word will also adapt to the new character
+									set.</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+
+				<div class="section">
+					<h2 id="sum-ai">7. Integrated AI Tasks</h2>
+
+					<h3>AI Tasks</h3>
+					<p>
+						AI tasks help you quickly process text while typing, such as spell checking, translation, or
+						character set conversion — all without leaving the keyboard.
+					</p>
+
+					<h4>Default Tasks:</h4>
+					<ol>
+						<li>Kiểm tra chính tả tiếng Việt</li>
+						<li>Kiểm tra chính tả tiếng Anh</li>
+						<li>Dịch sang tiếng Việt</li>
+						<li>Dịch sang tiếng Anh</li>
+						<li>Chuyển mã Unicode</li>
+					</ol>
+
+					<h3>Practical Applications</h3>
+					<ul>
+						<li>Write emails, reports, and content quickly and professionally.</li>
+						<li>Rewrite paragraphs, summarize, or change writing style.</li>
+						<li>Quickly translate documents or convert legacy text encodings.</li>
+					</ul>
+
+					<h3>Customizing AI Tasks</h3>
+					<ul>
+						<li>Right-click the <strong>Sigma</strong> icon in the system tray.</li>
+						<li>Select <code>Trình chỉnh sửa tác vụ AI</code>.</li>
+						<li>
+							You can add tasks such as: <code>Tóm tắt nội dung dài</code>,
+							<code>Viết lại đoạn văn</code>,
+							<code>Chuyển thành văn nói hài hước</code>, and more.
+						</li>
+					</ul>
+					<p><strong>Note:</strong> Default tasks cannot be edited or removed.</p>
+
+					<h4>Quick Access with Shortcut Keys</h4>
+					<p>
+						AI task names are sorted alphabetically. Shortcuts <code>Shift → F1</code> through
+						<code>Shift → F12</code> will trigger tasks 1 to 12 in the list.
+					</p>
+					<p>
+						To keep the order consistent and easier to remember, it’s recommended to add a <strong>numeric
+							prefix</strong> before task names (e.g., <code>01. Kiểm tra chính tả tiếng Việt</code>,
+						<code>02. Kiểm tra chính tả tiếng Anh</code>, …). This ensures:
+					</p>
+					<ul>
+						<li>A fixed order in the list.</li>
+						<li>Easy mapping to the corresponding <code>Shift → F#</code> shortcuts.</li>
+					</ul>
+
+					<p><strong>How to Use Shortcuts:</strong></p>
+					<ul>
+						<li>
+							Users can <strong>select text with the mouse</strong>, then press the corresponding shortcut
+							key to trigger the desired AI task.
+						</li>
+						<li>
+							If continuously typing, Sigma will automatically store the current text in temporary memory.
+							Users can press the shortcut key <strong>without selecting text</strong>, and the AI task
+							will be applied to the stored text.
+						</li>
+						<li>
+							<strong>Note:</strong> If you click or type, the temporary memory is cleared. In that case,
+							you must manually select text before using an AI task.
+						</li>
+					</ul>
+
+					<h4>Receiving Results from AI Tasks</h4>
+					<p>
+						Users can call AI tasks with either <strong>Left Shift</strong> or <strong>Right Shift</strong>.
+						Depending on the context, the results will be handled differently:
+					</p>
+					<ul>
+						<li>
+							<strong>Left Shift</strong>: The result will <strong>replace the selected text
+								directly</strong>. This works only in editable text fields (editors, input boxes,
+							writing areas, etc.).
+						</li>
+						<li>
+							<strong>Right Shift</strong>: For non-editable contexts (file names, menus, titles…), the
+							result will appear in a <strong>separate interface panel</strong> for you to review or copy
+							manually.
+						</li>
+					</ul>
+
+					<h4>AI Task Shortcuts</h4>
+					<table border="1" cellpadding="5" cellspacing="0">
+						<thead>
+							<tr>
+								<th>Key</th>
+								<th>Function</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><code>Shift → `</code></td>
+								<td>Run the application’s default AI task</td>
+							</tr>
+							<tr>
+								<td><code>Shift → F1</code></td>
+								<td>Run AI task 1 in the list</td>
+							</tr>
+							<tr>
+								<td><code>Shift → F2</code></td>
+								<td>Run AI task 2 in the list</td>
+							</tr>
+							<tr>
+								<td><code>Shift → F3</code></td>
+								<td>Run AI task 3 in the list</td>
+							</tr>
+							<tr>
+								<td>...</td>
+								<td>...</td>
+							</tr>
+							<tr>
+								<td><code>Shift → F12</code></td>
+								<td>Run AI task 12 in the list</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<p>
+						<strong>→ Sigma is not just an input method, but also an AI assistant to help you write more
+							efficiently and professionally.</strong>
+					</p>
+				</div>
+
+
+				<div class="section">
+					<h2 id="sum-shortcut">8. Shortcut Reference</h2>
+
+					<h3>Fixed Shortcuts</h3>
+					<table border="1" cellpadding="5" cellspacing="0">
+						<thead>
+							<tr>
+								<th>Function</th>
+								<th>Key</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Switch language mode between <code>English</code> and <code>Vietnamese</code> for
+									the application</td>
+								<td><code>Left Ctrl + Left Shift</code></td>
+							</tr>
+							<tr>
+								<td>Temporarily switch the current word to <code>English</code> or
+									<code>Vietnamese</code>
+								</td>
+								<td><code>Left Ctrl</code></td>
+							</tr>
+							<tr>
+								<td>Move cursor within the current word to the left for quick editing</td>
+								<td><code>←</code></td>
+							</tr>
+							<tr>
+								<td>Move cursor within the current word to the right for quick editing</td>
+								<td><code>→</code></td>
+							</tr>
+							<tr>
+								<td>Quickly delete the entire word to the left of the cursor</td>
+								<td><code>Shift + Backspace</code></td>
+							</tr>
+							<tr>
+								<td>Run AI task 1 in the list</td>
+								<td><code>Shift → F1</code></td>
+							</tr>
+							<tr>
+								<td>Run AI task 2 in the list</td>
+								<td><code>Shift → F2</code></td>
+							</tr>
+							<tr>
+								<td>Run AI task 3 in the list</td>
+								<td><code>Shift → F3</code></td>
+							</tr>
+							<tr>
+								<td>Run AI task 4 in the list</td>
+								<td><code>Shift → F4</code></td>
+							</tr>
+							<tr>
+								<td>Run AI task 5 in the list</td>
+								<td><code>Shift → F5</code></td>
+							</tr>
+							<tr>
+								<td>Run AI task 6 in the list</td>
+								<td><code>Shift → F6</code></td>
+							</tr>
+							<tr>
+								<td>Run AI task 7 in the list</td>
+								<td><code>Shift → F7</code></td>
+							</tr>
+							<tr>
+								<td>Run AI task 8 in the list</td>
+								<td><code>Shift → F8</code></td>
+							</tr>
+							<tr>
+								<td>Run AI task 9 in the list</td>
+								<td><code>Shift → F9</code></td>
+							</tr>
+							<tr>
+								<td>Run AI task 10 in the list</td>
+								<td><code>Shift → F10</code></td>
+							</tr>
+							<tr>
+								<td>Run AI task 11 in the list</td>
+								<td><code>Shift → F11</code></td>
+							</tr>
+							<tr>
+								<td>Run AI task 12 in the list</td>
+								<td><code>Shift → F12</code></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<h3>Custom Shortcuts</h3>
+					<table border="1" cellpadding="5" cellspacing="0">
+						<thead>
+							<tr>
+								<th>Function</th>
+								<th>Key</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Switch character set <code>Unicode</code> <code>VNI Windows</code>
+									<code>TCVN3 (ABC)</code> for the application
+								</td>
+								<td><code>Shift → M</code></td>
+							</tr>
+							<tr>
+								<td>Switch input style <code>Telex</code> <code>VNI</code> <code>Tích hợp</code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Cycle between <code>lowercase</code> <code>Title Case</code> <code>UPPERCASE</code>
+									for the current word</td>
+								<td><code>Shift → H</code></td>
+							</tr>
+							<tr>
+								<td>Open <code>Cấu hình ứng dụng</code></td>
+								<td><code>Shift → U</code></td>
+							</tr>
+							<tr>
+								<td>Open <code>Cấu hình chung</code></td>
+								<td><code>Shift → C</code></td>
+							</tr>
+							<tr>
+								<td>Open <code>Tùy chỉnh kiểu gõ tích hợp</code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Open <code>Trình chỉnh sửa tác vụ AI</code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Open <code>Trình quản lý phím tắt</code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Open <code>Trình quản lý gõ tắt</code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Clear saved configuration for the current window</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Open <code>Đóng góp ý kiến</code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Open <code>Hướng dẫn sử dụng</code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Exit Sigma</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Run the application’s default AI task</td>
+								<td><code>Shift → `</code></td>
+							</tr>
+							<tr>
+								<td>Toggle <code>Sử dụng chế độ tiếng Việt chủ động</code> for the application</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Toggle <code>Sử dụng clipboard khi gửi phím</code> for the application</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Toggle <code>Tương thích với ứng dụng có gợi ý từ</code> for the application</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Toggle <code>Tự động viết hoa thông minh</code> for the application</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Toggle <code>Cho phép dùng phụ âm đầu "f" "j" "w" "z"</code> for the application
+								</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Toggle <code>Dùng phím ← → để điều hướng từng từ</code> for the application</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Toggle <code>Khởi động cùng Windows</code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Toggle <code>Khôi phục từ gốc khi gõ sai chính tả</code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Toggle <code>Tự động chuyển từ tiếng Anh đã ghi nhớ</code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Toggle <code>Xóa toàn bộ dấu khi nhấn phím bỏ dấu</code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Toggle <code>Cho phép bỏ dấu xoay vòng</code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Toggle <code>Cho phép chèn ký tự bị thiếu</code></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<p>
+						These shortcuts are the defaults when installing <strong>Sigma</strong>. Users can
+						<strong>add</strong>, <strong>remove</strong>, or <strong>disable</strong> them by clicking the
+						<strong>Sigma</strong> icon in the system tray and selecting
+						<code>Trình quản lý phím tắt</code>.
+					</p>
+				</div>
+
+
+				<div class="section">
+					<h2 id="sum-feedback">9. Feedback</h2>
+
+					<p>You can send suggestions, bug reports, or feature requests for <strong>Sigma</strong> directly
+						within the application.</p>
+
+					<h3>How to send feedback</h3>
+					<ul>
+						<li>Right-click the <code>Sigma</code> icon in the bottom-right corner of the screen.</li>
+						<li>Select <code>Đóng góp ý kiến</code> and fill in the details you want to submit.</li>
+					</ul>
+
+					<h3>What you can send</h3>
+					<ul>
+						<li>Improvement ideas or desired features.</li>
+						<li>Bug reports during usage.</li>
+						<li>Contact information (if you want a reply).</li>
+					</ul>
+
+					<p><strong>Your feedback helps make Sigma better every day.</strong></p>
+				</div>
+
+
+				<div class="section">
+					<h2 id="sum-other">10. Other Issues</h2>
+
+					<h3>Notes when typing in Notepad</h3>
+					<p>
+						When using <strong>Notepad</strong> on Windows 11, if <strong>Spell check</strong> is enabled,
+						you may encounter Vietnamese typing errors: missing characters, misplaced characters, or
+						incorrect input.
+					</p>
+					<p>
+						<strong>To type Vietnamese correctly in Notepad, Spell check must be turned off</strong>.
+						Currently, there is no other solution.
+					</p>
+
+					<p>How to disable Spell check in Notepad (Windows 11):</p>
+					<ul>
+						<li>Open <strong>Notepad</strong>.</li>
+						<li>Click the <strong>gear icon (Cài đặt / Settings)</strong> in the top-right corner.</li>
+						<li>Find <strong>Spell check</strong> (or <strong>Kiểm tra chính tả</strong>).</li>
+						<li>Turn off the <strong>Spell check</strong> toggle.</li>
+					</ul>
+
+					<h3>Using Gemini AI in Sigma</h3>
+					<p>
+						AI tasks in Sigma are performed by connecting to the internet and sending API requests
+						to the Gemini AI system. Sigma comes with pre-integrated Gemini API keys, updated regularly
+						to serve users.
+					</p>
+					<p>
+						However, if too many users are active at the same time, some keys may be overloaded
+						and unable to process AI tasks.
+					</p>
+					<p>
+						For stable and independent usage, you can <strong>create your own Gemini API key</strong>
+						and add it to Sigma by:
+					</p>
+					<ul>
+						<li>Click the Sigma icon in the system tray (bottom-right corner).</li>
+						<li>Select <code>Trình quản lý tác vụ AI</code>.</li>
+						<li>Click the <code>Khóa API Gemini</code> button, then enter your key.</li>
+					</ul>
+					<p>You can create a Gemini API key here:</p>
+					<ul>
+						<li>
+							<strong>
+								<a href="https://aistudio.google.com/app/apikey" class="download-button"
+									target="_blank">
+									Create Gemini API Key
+								</a>
+							</strong>
+						</li>
+					</ul>
+					<p>
+						It is recommended to add <strong>multiple API keys</strong>. Sigma will randomly pick
+						one key from the list for each AI task, reducing the risk of hitting usage limits.
+					</p>
+
+					<h3>Create auto-control utilities for Sigma per application</h3>
+					<p>
+						Sigma allows external software to automatically control <code>English/Vietnamese</code> mode
+						and <code>character set</code> via Registry keys. You can use this feature to build small tools
+						or integrate with your own software, eliminating the need for manual switching.
+					</p>
+					<p>
+						All control is done through the key:
+						<code>HKEY_CURRENT_USER\Software\Sigma\AutoSigma</code>
+					</p>
+
+					<h4>Control input mode and character set via Registry</h4>
+					<table border="1" cellpadding="6" cellspacing="0">
+						<thead>
+							<tr>
+								<th>Key</th>
+								<th>Value</th>
+								<th>Function</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td rowspan="3"><code>FlagASIGAutoLang</code></td>
+								<td><code>True</code></td>
+								<td>Switch to Vietnamese input mode</td>
+							</tr>
+							<tr>
+								<td><code>False</code></td>
+								<td>Switch to English input mode</td>
+							</tr>
+							<tr>
+								<td><code>Reset</code></td>
+								<td>Restore the per-application input mode</td>
+							</tr>
+							<tr>
+								<td rowspan="4"><code>FlagASIGAutoCharSet</code></td>
+								<td><code>Unicode</code></td>
+								<td>Set Unicode character set</td>
+							</tr>
+							<tr>
+								<td><code>TCVN3 (ABC)</code></td>
+								<td>Set TCVN3 (ABC) character set</td>
+							</tr>
+							<tr>
+								<td><code>VNI Windows</code></td>
+								<td>Set VNI Windows character set</td>
+							</tr>
+							<tr>
+								<td><code>Reset</code></td>
+								<td>Restore the per-application character set</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<h4>AutoCAD integration with Auto Sigma.lsp</h4>
+					<p>
+						Sigma supports <strong>automatic switching of English/Vietnamese mode and character set</strong>
+						when creating or editing <code>TEXT / MTEXT</code> objects in AutoCAD. This is enabled
+						via an <code>AutoLISP</code> utility named <strong>Auto Sigma.lsp</strong>.
+					</p>
+					<p>
+						<strong>
+							<a href="https://raw.githubusercontent.com/phamhoangnhat/Sigma/main/Auto%20Sigma.rar"
+								class="download-button" target="_blank">
+								Download Auto Sigma.lsp
+							</a>
+						</strong>
+					</p>
+
+					<p><strong>Main features:</strong></p>
+					<ul>
+						<li>Whenever you create or edit text objects, Sigma will:</li>
+						<ul>
+							<li>Analyze the object’s font to automatically choose the correct character set (Unicode,
+								TCVN3, VNI...)</li>
+							<li>Switch to Vietnamese mode so you can type with diacritics correctly.</li>
+						</ul>
+					</ul>
+
+					<p><strong>Usage tips:</strong></p>
+					<ul>
+						<li>Add <code>Auto Sigma.lsp</code> to the <strong>Startup Suite</strong> in AutoCAD so it runs
+							automatically.</li>
+						<li>Type the command <code>ASIG</code> in AutoCAD to change Sigma’s auto settings anytime.</li>
+					</ul>
+
+					<p>
+						With this feature, you no longer need to manually switch character sets or input modes
+						when working with multiple fonts in AutoCAD.
+					</p>
+					<p>
+						When the above Registry values are updated, Sigma automatically detects and adjusts
+						the typing mode accordingly. This is especially useful when you want to quickly
+						change typing settings for a specific application.
+					</p>
+				</div>
+
+			</div>
+
+		</div>
+		<script>
+			const sumToggle = document.querySelector('.menu-toggle');
+			const sumSidebar = document.querySelector('.sidebar');
+
+			sumToggle.addEventListener('click', () => {
+				sumSidebar.classList.toggle('active');
+			});
+
+			let sumTimeout;
+
+			sumSidebar.addEventListener('mouseleave', () => {
+				if (sumSidebar.classList.contains('active')) {
+					sumTimeout = setTimeout(() => {
+						sumSidebar.classList.remove('active');
+					}, 200);
+				}
+			});
+
+			sumSidebar.addEventListener('mouseenter', () => {
+				clearTimeout(sumTimeout);
+			});
+
+			document.addEventListener('mousemove', (e) => {
+				if (e.clientX <= 10 && !sumSidebar.classList.contains('active')) {
+					sumSidebar.classList.add('active');
+				}
+			});
+		</script>
+	</div>
+</body>
+
+</html>
